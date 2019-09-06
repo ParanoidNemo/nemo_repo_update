@@ -1,0 +1,25 @@
+From 7cc136e18b511731f3d79c00743588cd4b5d1153 Mon Sep 17 00:00:00 2001
+From: ix5 <ix5@users.noreply.github.com>
+Date: Sat, 24 Aug 2019 17:28:20 +0200
+Subject: [PATCH] dts: tone: Kill verity
+
+---
+ arch/arm64/boot/dts/qcom/msm8996-tone-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/msm8996-tone-common.dtsi b/arch/arm64/boot/dts/qcom/msm8996-tone-common.dtsi
+index 738a71a12c2a..28288afd1135 100644
+--- a/arch/arm64/boot/dts/qcom/msm8996-tone-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/msm8996-tone-common.dtsi
+@@ -53,7 +53,7 @@
+ 					dev = "/dev/block/platform/soc/7464900.sdhci/by-name/system";
+ 					type = "ext4";
+ 					mnt_flags = "ro,barrier=1";
+-					fsmgr_flags = "wait,verify";
++					fsmgr_flags = "wait";
+ 					status = "ok";
+ 				};
+ 				odm {
+-- 
+2.22.1
+

@@ -1,0 +1,24 @@
+From 2113c8c0d497e478373a17c7fd927326144a5c7d Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Fri, 6 Sep 2019 19:48:45 +0200
+Subject: [PATCH] check_boot_jars: Whitelist CAF IMS
+
+Change-Id: Ic968b6c8d4232b772e09b6deb09ca977e0c8672b
+---
+ core/tasks/check_boot_jars/package_whitelist.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/core/tasks/check_boot_jars/package_whitelist.txt b/core/tasks/check_boot_jars/package_whitelist.txt
+index b0becba82..c17601647 100644
+--- a/core/tasks/check_boot_jars/package_whitelist.txt
++++ b/core/tasks/check_boot_jars/package_whitelist.txt
+@@ -241,3 +241,6 @@ com\.google\.vr\.platform.*
+ ###################################################
+ # Packages used for Android in Chrome OS
+ org\.chromium\.arc
++
++org\.codeaurora\.ims.*
++org\.codeaurora\.internal.*
+-- 
+2.23.0
+

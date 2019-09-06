@@ -1,0 +1,30 @@
+From 9c521a55ee9424277b84215f8d440dcf132e1f81 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Fri, 6 Sep 2019 19:43:30 +0200
+Subject: [PATCH] Android.bp: Fake windows libwinpthread srcs
+
+Change-Id: I9e1e968ecc2b07c6ed458709d006f2e0ffc94f35
+---
+ Android.bp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Android.bp b/Android.bp
+index ecbd2e3c..cfeb7843 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -359,10 +359,10 @@ toolchain_library {
+             enabled: true,
+         },
+         windows_x86: {
+-            src: "prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/lib32/libwinpthread.a",
++            src: "prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.17-4.8/lib/libbfd.a",
+         },
+         windows_x86_64: {
+-            src: "prebuilts/gcc/linux-x86/host/x86_64-w64-mingw32-4.8/x86_64-w64-mingw32/lib/libwinpthread.a",
++            src: "prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.17-4.8/lib/libbfd.a",
+         },
+     },
+ }
+-- 
+2.23.0
+

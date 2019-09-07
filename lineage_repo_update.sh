@@ -245,6 +245,12 @@ popd
 #git am < $PATCHES_PATH/sepolicy-app-neverallow-exception-matlog.patch
 #popd
 
+pushd $ANDROOT/vendor/lineage
+# Remove build-kernel task to use SODP makefile
+git am < $PATCHES_PATH/lineage-vendor-lineage-remove-kernel-task.patch
+popd
+
+
 # because "set -e" is used above, when we get to this point, we know
 # all patches were applied successfully.
 echo ""

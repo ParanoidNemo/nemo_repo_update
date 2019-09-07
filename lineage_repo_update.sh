@@ -98,6 +98,11 @@ pushd $ANDROOT/build/soong
 git am < $PATCHES_PATH/lineage-build-soong-fake-winpthread.patch
 popd
 
+pushd $ANDROOT/frameworks/base
+# tests: net: Remove libapf deps
+git am < $PATCHES_PATH/lineage-fwb-remove-libapf-dep.patch
+popd
+
 pushd $ANDROOT/device/sony/common
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK

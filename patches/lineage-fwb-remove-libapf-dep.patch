@@ -1,0 +1,38 @@
+From 6052130246c225ca6da1266089b908eb44fb67fa Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Sat, 7 Sep 2019 07:02:20 +0200
+Subject: [PATCH] tests: net: Remove libapf deps
+
+Change-Id: Ic4b4869dbe633716e42f3aaa58cd667ee2b5f51a
+---
+ tests/net/Android.mk | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/tests/net/Android.mk b/tests/net/Android.mk
+index 1bc4fd5ec58..0fcc55df459 100644
+--- a/tests/net/Android.mk
++++ b/tests/net/Android.mk
+@@ -78,10 +78,6 @@ LOCAL_MODULE_TAGS := tests
+ 
+ LOCAL_CFLAGS := -Wall -Wextra -Werror
+ 
+-LOCAL_C_INCLUDES := \
+-  libpcap \
+-  hardware/google/apf
+-
+ LOCAL_SRC_FILES := $(call all-cpp-files-under)
+ 
+ LOCAL_SHARED_LIBRARIES := \
+@@ -92,8 +88,7 @@ LOCAL_SHARED_LIBRARIES := \
+   libnetdaidl
+ 
+ LOCAL_STATIC_LIBRARIES := \
+-  libpcap \
+-  libapf
++  libpcap
+ 
+ LOCAL_MODULE := libframeworksnettestsjni
+ 
+-- 
+2.23.0
+

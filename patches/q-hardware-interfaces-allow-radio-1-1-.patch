@@ -1,0 +1,26 @@
+From b10da7b0b99219fb63de7a36d27b08865aa907b7 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Sun, 8 Sep 2019 17:25:17 +0200
+Subject: [PATCH] FIXME: compatibility: Allow radio@1.1
+
+Change-Id: I92a68d893355f163f2bea7fd1222528ceaa4915a
+---
+ compatibility_matrices/compatibility_matrix.4.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compatibility_matrices/compatibility_matrix.4.xml b/compatibility_matrices/compatibility_matrix.4.xml
+index 01ec172d8..89b5805a7 100644
+--- a/compatibility_matrices/compatibility_matrix.4.xml
++++ b/compatibility_matrices/compatibility_matrix.4.xml
+@@ -347,7 +347,7 @@
+     </hal>
+     <hal format="hidl" optional="true">
+         <name>android.hardware.radio</name>
+-        <version>1.4</version>
++        <version>1.1-4</version>
+         <interface>
+             <name>IRadio</name>
+             <instance>slot1</instance>
+-- 
+2.23.0
+

@@ -120,7 +120,7 @@ popd
 
 pushd $ANDROOT/hardware/interfaces
 # FIXME: compatibility: Allow radio@1.1
-git am < $PATCHES_PATH/hardware-interfaces-allow-radio-1-1-.patch
+git am < $PATCHES_PATH/q-hardware-interfaces-allow-radio-1-1-.patch
 popd
 
 pushd $ANDROOT/device/sony/common

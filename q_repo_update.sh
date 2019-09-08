@@ -175,7 +175,8 @@ apply_pull_commit 610 1bf9381b197fde93b3d74dd30fb7579aae84c2f7
 apply_pull_commit 610 673508ec65ba23256e7ca0e376ba130ce3ae9859
 
 # [Q-COMPAT] common: Set PRODUCT_BUILD_RECOVERY_IMAGE=true
-apply_pull_commit 633 fefbd687d2af9038246abd3da260409d01c4d2ed
+# FIXME: Re-enable this!
+#apply_pull_commit 633 fefbd687d2af9038246abd3da260409d01c4d2ed
 
 # https://github.com/sonyxperiadev/device-sony-common/pull/617
 # odm: Use PRODUCT_ODM_PROPERTIES for version

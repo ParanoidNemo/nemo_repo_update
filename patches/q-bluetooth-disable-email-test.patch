@@ -19,7 +19,7 @@ index 24db70ff..9bfd4ab0 100644
 -    com.android.emailcommon \
      androidx.test.rules \
      mockito-target \
-     androidx.test.espresso.intents \
+     androidx.test.espresso.intents
 -- 
 2.22.0
 

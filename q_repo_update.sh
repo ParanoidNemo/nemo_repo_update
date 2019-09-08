@@ -110,7 +110,7 @@ popd
 
 pushd $ANDROOT/packages/apps/Launcher3
 # Launcher3QuickStep: Remove useless QuickSearchbar
-git am < $PATCHES_PATH/launcher3quickstep-remove-quicksearchbar.patch
+git am < $PATCHES_PATH/q-launcher3quickstep-remove-quicksearchbar.patch
 popd
 
 pushd $ANDROOT/frameworks/base

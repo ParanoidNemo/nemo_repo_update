@@ -1,0 +1,26 @@
+From f9748417e9dfe08585e7552a6e371116408a7f28 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Sun, 8 Sep 2019 17:15:19 +0200
+Subject: [PATCH] Launcher3QuickStep: Remove useless QuickSearchbar
+
+Change-Id: Id2fd10dad2e3cff499aa24ffc79fed066ad31c96
+---
+ src/com/android/launcher3/config/BaseFlags.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/com/android/launcher3/config/BaseFlags.java b/src/com/android/launcher3/config/BaseFlags.java
+index 45639e0a4..5e5590e0b 100644
+--- a/src/com/android/launcher3/config/BaseFlags.java
++++ b/src/com/android/launcher3/config/BaseFlags.java
+@@ -67,7 +67,7 @@ abstract class BaseFlags {
+     public static final boolean LAUNCHER3_PROMISE_APPS_IN_ALL_APPS = false;
+ 
+     // Enable moving the QSB on the 0th screen of the workspace
+-    public static final boolean QSB_ON_FIRST_SCREEN = true;
++    public static final boolean QSB_ON_FIRST_SCREEN = false;
+ 
+     public static final TogglableFlag EXAMPLE_FLAG = new TogglableFlag("EXAMPLE_FLAG", true,
+             "An example flag that doesn't do anything. Useful for testing");
+-- 
+2.23.0
+

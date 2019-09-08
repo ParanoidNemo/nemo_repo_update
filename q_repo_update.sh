@@ -138,7 +138,8 @@ apply_commit 6c33a4a8f5fe4615235df9d7abcfe3644f299672
 # TODO: Remove me once merged into Q/master
 # git checkout 'vintf-enforce'
 # Enforce usage of vintf manifest
-apply_commit 5df1a36972a8709f76463f8fe184d472e75d93a1
+# TODO/Q: Re-enable, broken
+#apply_commit 5df1a36972a8709f76463f8fe184d472e75d93a1
 
 # git checkout 'vintf-healthd'
 # common-treble: Remove healthd vintf exclude

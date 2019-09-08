@@ -1,0 +1,30 @@
+From 77f504fce0a3bde4fec980048ea00b77c5cf63bc Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Sun, 8 Sep 2019 17:21:23 +0200
+Subject: [PATCH] Enable development settings by default
+
+Change-Id: I10518d265fb064c285c942c3dda1588d5b64e9c2
+---
+ .../settingslib/development/DevelopmentSettingsEnabler.java  | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java b/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java
+index b191f888aa1..e44221cd66c 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java
++++ b/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java
+@@ -41,9 +41,10 @@ public class DevelopmentSettingsEnabler {
+ 
+     public static boolean isDevelopmentSettingsEnabled(Context context) {
+         final UserManager um = (UserManager) context.getSystemService(Context.USER_SERVICE);
++        // frameworks/base/core/java/android/provider/Settings.java
++        // getInt(ContentResolver, name, default value)
+         final boolean settingEnabled = Settings.Global.getInt(context.getContentResolver(),
+-                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+-                Build.TYPE.equals("eng") ? 1 : 0) != 0;
++                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 1) != 0;
+         final boolean hasRestriction = um.hasUserRestriction(
+                 UserManager.DISALLOW_DEBUGGING_FEATURES);
+         final boolean isAdmin = um.isAdminUser();
+-- 
+2.23.0
+

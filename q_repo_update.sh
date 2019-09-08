@@ -115,7 +115,7 @@ popd
 
 pushd $ANDROOT/frameworks/base
 # Enable development settings by default
-git am < $PATCHES_PATH/enable-development-settings-by-default.patch
+git am < $PATCHES_PATH/q-enable-development-settings-by-default.patch
 popd
 
 pushd $ANDROOT/hardware/interfaces

@@ -1,0 +1,38 @@
+From b7b71a20bb6c03e0ccc74a47f6b3c528bc5090d6 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Wed, 11 Sep 2019 20:13:44 +0200
+Subject: [PATCH] Drop sleep constructor
+
+Change-Id: Ife2c6a435eb4a0d19f9b9cc0df6c2aac3309c74d
+---
+ bin/aarch64-linux-android-g++ | 1 -
+ bin/aarch64-linux-android-gcc | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/bin/aarch64-linux-android-g++ b/bin/aarch64-linux-android-g++
+index 4ee0963..a136272 100755
+--- a/bin/aarch64-linux-android-g++
++++ b/bin/aarch64-linux-android-g++
+@@ -58,7 +58,6 @@ class CompilerWrapper():
+ 
+ 
+   def invoke_compiler(self):
+-    self.print_deprecation_warning()
+     self.set_real_compiler()
+     self.parse_custom_flags()
+     self.process_gomacc_command()
+diff --git a/bin/aarch64-linux-android-gcc b/bin/aarch64-linux-android-gcc
+index 35ef419..274acc8 100755
+--- a/bin/aarch64-linux-android-gcc
++++ b/bin/aarch64-linux-android-gcc
+@@ -58,7 +58,6 @@ class CompilerWrapper():
+ 
+ 
+   def invoke_compiler(self):
+-    self.print_deprecation_warning()
+     self.set_real_compiler()
+     self.parse_custom_flags()
+     self.process_gomacc_command()
+-- 
+2.23.0
+

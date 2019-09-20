@@ -295,9 +295,11 @@ popd
 #popd
 
 pushd $ANDROOT/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
-# Drop sleep constructor
+# aarch64: Drop sleep constructor
 git am < $PATCHES_PATH/q-gcc-sleep-constructor-aarch64.patch
-# Drop sleep constructor
+popd
+pushd $ANDROOT/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9
+# arm: Drop sleep constructor
 git am < $PATCHES_PATH/q-gcc-sleep-constructor-arm.patch
 popd
 

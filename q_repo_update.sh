@@ -88,11 +88,6 @@ git am < $PATCHES_PATH/panel-minimum-brightness.patch
 git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
 popd
 
-pushd $ANDROOT/kernel/sony/msm-4.9/common-kernel
-# KernelConfig: Fix BUILD_KERNEL
-git am < $PATCHES_PATH/q-common-kernel-fix-build-kernel-var.patch
-popd
-
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
 git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch
@@ -130,53 +125,21 @@ do_if_online git fetch ix5
 
 # git checkout 'add-vendor-ix5'
 # Include vendor-ix5 via common.mk
-apply_commit 891d072a7e515d7e69b075b587a7baf569b54b14
+apply_commit 46965a6dcae27d4358a53dacca1eb8429bff9e70
 
+# git checkout 'init-remove-verity'
 # init: Remove verity statements
 apply_commit 6c33a4a8f5fe4615235df9d7abcfe3644f299672
 
-# TODO: Remove me once merged into Q/master
-# git checkout 'vintf-enforce'
-# Enforce usage of vintf manifest
-# TODO/Q: Re-enable, broken
-#apply_commit 5df1a36972a8709f76463f8fe184d472e75d93a1
-
-# git checkout 'vintf-healthd'
-# common-treble: Remove healthd vintf exclude
-apply_commit a6b628e6a2b4c33233860960d874a176c340229b
-
-# git checkout 'vintf-remove-mediacas'
-# vintf: Remove duplicate IMediaCas HAL
-apply_commit 1f5ab5b3487567bf542a6cd40bd8cc9d5db17d75
-
-# git checkout 'vintf-target-level-4'
-# vintf: Set target-level=4 for Q
-apply_commit 0a21146905c7f9bfbd3791855b791d6642345fb2
-
-# git checkout 'vintf-radio-1-1-'
-# vintf: Lower radio version to 1.1
-apply_commit 25d4d23c987cb6ff63c0462ff6ced0d389deec7b
+# git checkout 'revert-new-media'
+# Revert "TEMP: use the new media platform for all devices"
+apply_commit 2babda1d5e2599be85e2f406666100ac3e7b7ae8
 
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # TODO: Remove me once merged into Q/master
 
-# https://github.com/sonyxperiadev/device-sony-common/pull/608
-# Remove gps_debug.conf
-apply_pull_commit 608 37f78456f546d59507b58af140e943d617863cc6
-
-# https://github.com/sonyxperiadev/device-sony-common/pull/609
-# qcom/utils.mk: Use ?= for definitions
-apply_pull_commit 609 7c43cdaa721692086eb3a23bea3821a65c082def
-
-# https://github.com/sonyxperiadev/device-sony-common/pull/610
-# [Q-COMPAT] Move kernel includes to common.mk
-apply_pull_commit 610 1bf9381b197fde93b3d74dd30fb7579aae84c2f7
-# common.mk: Make BUILD_KERNEL customizable
-apply_pull_commit 610 673508ec65ba23256e7ca0e376ba130ce3ae9859
-
 # [Q-COMPAT] common: Set PRODUCT_BUILD_RECOVERY_IMAGE=true
-# FIXME: Re-enable this!
-#apply_pull_commit 633 fefbd687d2af9038246abd3da260409d01c4d2ed
+apply_pull_commit 633 60ef5420ca28d995e75e95c12deb6d6d1f1ecc33
 
 # https://github.com/sonyxperiadev/device-sony-common/pull/617
 # odm: Use PRODUCT_ODM_PROPERTIES for version
@@ -189,38 +152,6 @@ apply_commit 2019f8b5499d553c51b000202a2a62121f8568e6
 # https://github.com/sonyxperiadev/device-sony-common/pull/616
 # power: No subsystem stats in user builds
 apply_pull_commit 616 76fc5c2fb36a3f1bfe24d51daa04caeb5ce14fdb
-
-# https://github.com/sonyxperiadev/device-sony-common/pull/606
-# Revert "common-prop: Enable dmic fluence for voicerec case"
-apply_pull_commit 606 fe3f8ffb83a0f0a729aa8294c3fc8b39961d4bd4
-popd
-
-
-pushd $ANDROOT/device/sony/sepolicy
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-sepolicy"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
-
-# git checkout 'q-sepolicy-version'
-# Q: TEMP: Set sepolicy version to match master
-apply_commit 64501e76d4daced00ef64f4a9bb08e99b7ad650e
-
-# git checkout 'remove-dupe-idc-keylayout-noconflict'
-# [NOCONFLICT] Remove duplicated idc file defs
-apply_commit a8729c24ead8c84c881d0ab4546a2c89832de6c1
-
-# git checkout 'genfscon-remove-sysfs-net'
-# genfscon: Remove duplicate sysfs_net entries
-apply_commit c086d8a5bd1daa4d27717154e76c97044c8e958c
-
-# git checkout 'q-netd-remove-socket'
-# netmgrd: Remove unused netd_socket
-apply_commit 1a59778834eefedcb3e56e910d10392595db3d57
-
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-sepolicy"
-
-# [Q-COMPAT] system_app: Remove obsolete perfprofd dontaudit
-apply_pull_commit 531 617c2ebd443f36a54687cc136c86f0880b0f5e1f
 popd
 
 
@@ -235,10 +166,6 @@ apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
 # Disable dm-verity
 apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
 
-# git checkout 'q-bdroid-property-length'
-# bdroid_buildcfg: Fix PROPERTY_VALUE_MAX definition
-apply_commit cf984bcab9ff623d07ea838b5f393281f157f1af
-
 # git checkout 'q-product-build-bootimg'
 # platform: Build boot image
 apply_commit 19f8a85dcd7d2f1412579b1f0d8da7400552882f
@@ -246,6 +173,14 @@ apply_commit 19f8a85dcd7d2f1412579b1f0d8da7400552882f
 # git checkout 'treble-buildvars'
 # platform/Platform: Enable VNDK, linker ns
 apply_commit 25e58e5989bb4f50845e83b0349811102b5a69b3
+
+# git checkout 'revert-drm-rendering'
+# Revert "PlatformConfig: enable DRM rendering"
+apply_commit cf890f70a2de9131b8c23e6ad2bbd1a7f9fc5eae
+
+# git checkout 'revert-kernel-4.14'
+# Revert "move msm8996 devices to kernel 4.14"
+apply_commit 8bea33cf78921e9eb58d4523809fb9c91ca56388
 popd
 
 
@@ -253,10 +188,6 @@ pushd $ANDROOT/device/sony/kagura
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-kagura"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
 do_if_online git fetch ix5
-
-# git checkout 'lunch'
-# Switch from add_lunch_combo to COMMON_LUNCH_CHOICES
-apply_commit 383d2594a89ca7076df06a701d3cf5c76fff9e3e
 
 # git checkout 'dt2w'
 # Re-enable tap to wake
@@ -275,19 +206,21 @@ pushd $ANDROOT/vendor/qcom/opensource/location
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/vendor-qcom-opensource-location"
 # https://github.com/sonyxperiadev/vendor-qcom-opensource-location/pull/19
 # loc_api: Fix: Use lu in log format
-apply_pull_commit 19 173655ffc2775dca6f808020e859850e47311a1b
+# TODO: Check whether this needs to be enabled on Q
+#apply_pull_commit 19 173655ffc2775dca6f808020e859850e47311a1b
 popd
 
-pushd $ANDROOT/hardware/qcom/display/sde
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/hardware-qcom-display"
-# https://github.com/sonyxperiadev/hardware-qcom-display/pull/22
-# hwc2: Fix compile errors in switch statement.
-apply_pull_commit 22 7da54855b89a67a2f43514f62bedce49f1a4b3c3
-# libqdutils: Fix duplicated header
-apply_pull_commit 22 32827304b117684a3cd2a2ff3d8d115ffc0246f1
-#  Makefile: Add -fPIC to common_flags
-apply_pull_commit 22 b3bdde9600dda7f41da63b2c55e14afd77fc5af8
-popd
+# TODO: Check whether sonyxperiadev state is enough
+#pushd $ANDROOT/hardware/qcom/display/sde
+#LINK=$HTTP && LINK+="://github.com/sonyxperiadev/hardware-qcom-display"
+## https://github.com/sonyxperiadev/hardware-qcom-display/pull/22
+## hwc2: Fix compile errors in switch statement.
+#apply_pull_commit 22 7da54855b89a67a2f43514f62bedce49f1a4b3c3
+## libqdutils: Fix duplicated header
+#apply_pull_commit 22 32827304b117684a3cd2a2ff3d8d115ffc0246f1
+##  Makefile: Add -fPIC to common_flags
+#apply_pull_commit 22 b3bdde9600dda7f41da63b2c55e14afd77fc5af8
+#popd
 
 # Disabled for now
 #pushd $ANDROOT/system/sepolicy

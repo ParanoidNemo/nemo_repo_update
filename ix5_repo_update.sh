@@ -135,6 +135,7 @@ git tag selinux-enforcing-temp-tag
 # Include vendor-ix5 via common.mk
 apply_commit 891d072a7e515d7e69b075b587a7baf569b54b14
 
+# git checkout 'init-remove-verity'
 # init: Remove verity statements
 apply_commit 6c33a4a8f5fe4615235df9d7abcfe3644f299672
 
@@ -187,10 +188,6 @@ apply_pull_commit 616 76fc5c2fb36a3f1bfe24d51daa04caeb5ce14fdb
 
 # [Q-COMPAT] common: Set PRODUCT_BUILD_RECOVERY_IMAGE=true
 apply_pull_commit 633 fefbd687d2af9038246abd3da260409d01c4d2ed
-
-# https://github.com/sonyxperiadev/device-sony-common/pull/606
-# Revert "common-prop: Enable dmic fluence for voicerec case"
-apply_pull_commit 606 fe3f8ffb83a0f0a729aa8294c3fc8b39961d4bd4
 popd
 
 
@@ -215,12 +212,13 @@ do_if_online git fetch ix5
 
 # git checkout 'kernel-socket'
 # kernel: debugfs_wlan only in debug builds
-# TODO: is in master, needs to land in p-mr1
+# TODO: Variation of this is in master, needs to land in p-mr1
 #apply_commit 444894b98f8d14c3f0b64a1ba23b19a907638b2f
 
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-sepolicy"
 
 # [Q-COMPAT] system_app: Remove obsolete perfprofd dontaudit
+# TODO: is in master, needs to land in p-mr1
 apply_pull_commit 531 617c2ebd443f36a54687cc136c86f0880b0f5e1f
 popd
 

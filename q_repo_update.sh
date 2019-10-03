@@ -86,6 +86,8 @@ pushd $ANDROOT/kernel/sony/msm-4.9/kernel
 git am < $PATCHES_PATH/panel-minimum-brightness.patch
 # dts: tone: Kill verity
 git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
+# Update makefiles for Android Q and clang
+git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
 popd
 
 pushd $ANDROOT/build/make

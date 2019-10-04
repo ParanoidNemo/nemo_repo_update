@@ -137,15 +137,6 @@ apply_commit 6c33a4a8f5fe4615235df9d7abcfe3644f299672
 # Revert "TEMP: use the new media platform for all devices"
 apply_commit 2babda1d5e2599be85e2f406666100ac3e7b7ae8
 
-# https://github.com/sonyxperiadev/device-sony-common/pull/617
-# git checkout 'odm-refactor'
-# odm: Use PRODUCT_ODM_PROPERTIES for version
-apply_commit 12cb71d8b2a53e3d5076439ba7c560c897b73c93
-# odm: Only build if SONY_BUILD_ODM is set
-apply_commit 9d552d1cf909abe785146f0f2e69a523e569def8
-# odm: Include qti blobs in common-odm
-apply_commit 49dcf94b9cbe8b7c896edb3a583caba364635325
-
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # TODO: Remove me once merged into Q/master
 

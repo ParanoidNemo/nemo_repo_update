@@ -120,6 +120,11 @@ pushd $ANDROOT/hardware/interfaces
 git am < $PATCHES_PATH/q-hardware-interfaces-allow-radio-1-1-.patch
 popd
 
+pushd $ANDROOT/packages/modules/NetworkStack
+# tests: net: Remove libapf deps
+git am < $PATCHES_PATH/q-networkstack-remove-libapf.patch
+popd
+
 pushd $ANDROOT/device/sony/common
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK

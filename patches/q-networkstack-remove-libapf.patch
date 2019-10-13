@@ -1,0 +1,35 @@
+From 368b83038b2ae8cd3b3b4f9ed32db0dbb7431401 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Sun, 13 Oct 2019 19:37:56 +0200
+Subject: [PATCH] tests: net: Remove libapf deps
+
+Change-Id: Ic7f900a5a3a0993588891822ac7b2b9838f8152f
+---
+ tests/unit/Android.bp | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/tests/unit/Android.bp b/tests/unit/Android.bp
+index 6cc8054..3b95971 100644
+--- a/tests/unit/Android.bp
++++ b/tests/unit/Android.bp
+@@ -86,9 +86,6 @@ cc_library_shared {
+         "-Wextra",
+         "-Werror",
+     ],
+-    include_dirs: [
+-        "hardware/google/apf",
+-    ],
+     shared_libs: [
+         "libbinder",
+         "liblog",
+@@ -97,7 +94,6 @@ cc_library_shared {
+         "netd_aidl_interface-V2-cpp",
+     ],
+     static_libs: [
+-        "libapf",
+         "libpcap",
+     ],
+ }
+-- 
+2.23.0
+

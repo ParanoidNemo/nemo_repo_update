@@ -100,11 +100,6 @@ pushd $ANDROOT/build/soong
 git am < $PATCHES_PATH/q-build-soong-fake-libwinpthread.patch
 popd
 
-pushd $ANDROOT/packages/apps/Bluetooth
-# Disable email module for BluetoothInstrumentionTest
-git am < $PATCHES_PATH/q-bluetooth-disable-email-test.patch
-popd
-
 pushd $ANDROOT/packages/apps/Launcher3
 # Launcher3QuickStep: Remove useless QuickSearchbar
 git am < $PATCHES_PATH/q-launcher3quickstep-remove-quicksearchbar.patch
@@ -118,11 +113,6 @@ popd
 pushd $ANDROOT/hardware/interfaces
 # FIXME: compatibility: Allow radio@1.1
 git am < $PATCHES_PATH/q-hardware-interfaces-allow-radio-1-1-.patch
-popd
-
-pushd $ANDROOT/packages/modules/NetworkStack
-# tests: net: Remove libapf deps
-git am < $PATCHES_PATH/q-networkstack-remove-libapf.patch
 popd
 
 pushd $ANDROOT/device/sony/common

@@ -105,6 +105,11 @@ pushd $ANDROOT/packages/apps/Launcher3
 git am < $PATCHES_PATH/q-launcher3quickstep-remove-quicksearchbar.patch
 popd
 
+pushd $ANDROOT/packages/modules/NetworkStack
+# tests: net: Remove libapf deps
+git am < $PATCHES_PATH/master-networkstack-tests-net-Remove-libapf-deps.patch
+popd
+
 pushd $ANDROOT/frameworks/base
 # Enable development settings by default
 git am < $PATCHES_PATH/q-enable-development-settings-by-default.patch

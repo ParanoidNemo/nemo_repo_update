@@ -93,6 +93,8 @@ popd
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
 git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch
+# handheld_product: Remove Browser2, QuickSearchBox
+git am < $PATCHES_PATH/q-build-make-remove-browser2-quicksearchbox.patch
 popd
 
 pushd $ANDROOT/build/soong

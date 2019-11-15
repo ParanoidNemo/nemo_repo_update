@@ -225,6 +225,11 @@ popd
 #git am < $PATCHES_PATH/q-sepolicy-app-neverallow-exception-matlog.patch
 #popd
 
+pushd $ANDROOT/system/core
+# property_service: Read /odm/build.prop
+git am < $PATCHES_PATH/q-system-core-propertyservice-read-odm-buildprop.patch
+popd
+
 pushd $ANDROOT/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
 # aarch64: Drop sleep constructor
 git am < $PATCHES_PATH/q-gcc-sleep-constructor-aarch64.patch

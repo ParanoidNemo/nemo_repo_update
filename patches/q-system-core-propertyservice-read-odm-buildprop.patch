@@ -1,0 +1,27 @@
+From b1b02ecd1d2adc2c472f4991ea8419f025c0bfa0 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Tue, 5 Nov 2019 19:14:31 +0100
+Subject: [PATCH] property_service: Read /odm/build.prop
+
+The compat was removed in Q, re-add it to use v9 blobs
+
+Change-Id: Ibfe0b56b911e9c462e05158f18512d9121672f5c
+---
+ init/property_service.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/init/property_service.cpp b/init/property_service.cpp
+index f2c7462ab..86c94d828 100644
+--- a/init/property_service.cpp
++++ b/init/property_service.cpp
+@@ -890,6 +890,7 @@ void property_load_boot_defaults(bool load_debug_prop) {
+     load_properties_from_file("/vendor/default.prop", nullptr, &properties);
+     load_properties_from_file("/vendor/build.prop", nullptr, &properties);
+     if (SelinuxGetVendorAndroidVersion() >= __ANDROID_API_Q__) {
++        load_properties_from_file("/odm/build.prop", nullptr, &properties);
+         load_properties_from_file("/odm/etc/build.prop", nullptr, &properties);
+     } else {
+         load_properties_from_file("/odm/default.prop", nullptr, &properties);
+-- 
+2.23.0
+

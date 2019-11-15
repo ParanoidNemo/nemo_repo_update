@@ -200,26 +200,6 @@ apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
 #apply_commit a0253f3de75c52bccb9275ee7eda6cd2f9db539c
 popd
 
-pushd $ANDROOT/vendor/qcom/opensource/location
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/vendor-qcom-opensource-location"
-# https://github.com/sonyxperiadev/vendor-qcom-opensource-location/pull/19
-# loc_api: Fix: Use lu in log format
-# TODO: Check whether this needs to be enabled on Q
-#apply_pull_commit 19 173655ffc2775dca6f808020e859850e47311a1b
-popd
-
-# TODO: Check whether sonyxperiadev state is enough
-#pushd $ANDROOT/hardware/qcom/display/sde
-#LINK=$HTTP && LINK+="://github.com/sonyxperiadev/hardware-qcom-display"
-## https://github.com/sonyxperiadev/hardware-qcom-display/pull/22
-## hwc2: Fix compile errors in switch statement.
-#apply_pull_commit 22 7da54855b89a67a2f43514f62bedce49f1a4b3c3
-## libqdutils: Fix duplicated header
-#apply_pull_commit 22 32827304b117684a3cd2a2ff3d8d115ffc0246f1
-##  Makefile: Add -fPIC to common_flags
-#apply_pull_commit 22 b3bdde9600dda7f41da63b2c55e14afd77fc5af8
-#popd
-
 # Disabled for now
 #pushd $ANDROOT/system/sepolicy
 #git am < $PATCHES_PATH/q-sepolicy-app-neverallow-exception-matlog.patch

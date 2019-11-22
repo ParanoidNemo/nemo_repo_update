@@ -187,6 +187,17 @@ apply_commit 8bea33cf78921e9eb58d4523809fb9c91ca56388
 popd
 
 
+pushd $ANDROOT/device/sony/tama
+LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tama"
+(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+do_if_online git fetch ix5
+
+# git checkout 'avb-allow-disable-verity'
+# PlatformConfig: Allow unverified images
+apply_commit 28915c56a25f9965aa22487366ba69ed8e78574b
+popd
+
+
 pushd $ANDROOT/device/sony/kagura
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-kagura"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK

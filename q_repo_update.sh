@@ -90,6 +90,11 @@ git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
 git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
 popd
 
+pushd $ANDROOT/kernel/sony/msm-4.14/kernel
+# TEMP: Build-able makefile for qr and 4.14
+git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
+popd
+
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
 git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch

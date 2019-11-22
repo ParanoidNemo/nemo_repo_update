@@ -92,7 +92,7 @@ popd
 
 pushd $ANDROOT/kernel/sony/msm-4.14/kernel
 # TEMP: Build-able makefile for qr and 4.14
-git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
+git am < $PATCHES_PATH/q-kernel-4.14.patch
 popd
 
 pushd $ANDROOT/build/make

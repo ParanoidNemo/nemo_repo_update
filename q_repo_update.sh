@@ -77,19 +77,6 @@ echo "         applying ix5 patches..."
 echo ""
 
 
-pushd $ANDROOT/kernel/sony/msm-4.9/kernel
-# Enable wakeup_gesture in dtsi table
-# You need to discard vendor-sony-kernel or the build system will use
-# precompiled dtb files, thus rendering this patch useless
-#git am < $PATCHES_PATH/kernel-dtsi-wakeup.patch
-# tone: panel: set min brightness to 1.2mA
-git am < $PATCHES_PATH/panel-minimum-brightness.patch
-# dts: tone: Kill verity
-git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
-# Update makefiles for Android Q and clang
-git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
-popd
-
 pushd $ANDROOT/kernel/sony/msm-4.14/kernel
 # TEMP: Build-able makefile for qr and 4.14
 git am < $PATCHES_PATH/q-kernel-4.14.patch
@@ -145,10 +132,6 @@ apply_commit 46965a6dcae27d4358a53dacca1eb8429bff9e70
 # init: Remove verity statements
 apply_commit 6c33a4a8f5fe4615235df9d7abcfe3644f299672
 
-# git checkout 'revert-new-media'
-# Revert "TEMP: use the new media platform for all devices"
-apply_commit 2babda1d5e2599be85e2f406666100ac3e7b7ae8
-
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # TODO: Remove me once merged into Q/master
 
@@ -176,14 +159,6 @@ apply_commit 19f8a85dcd7d2f1412579b1f0d8da7400552882f
 # git checkout 'treble-buildvars'
 # platform/Platform: Enable VNDK, linker ns
 apply_commit 25e58e5989bb4f50845e83b0349811102b5a69b3
-
-# git checkout 'revert-kernel-4.14'
-# Revert "move msm8996 devices to kernel 4.14"
-apply_commit 8bea33cf78921e9eb58d4523809fb9c91ca56388
-
-# git checkout 'k4.9-guard'
-# PlatformConfig: Only use DRM/SDE on 4.14
-apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
 popd
 
 

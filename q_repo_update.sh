@@ -177,13 +177,13 @@ apply_commit 19f8a85dcd7d2f1412579b1f0d8da7400552882f
 # platform/Platform: Enable VNDK, linker ns
 apply_commit 25e58e5989bb4f50845e83b0349811102b5a69b3
 
-# git checkout 'revert-drm-rendering'
-# Revert "PlatformConfig: enable DRM rendering"
-apply_commit cf890f70a2de9131b8c23e6ad2bbd1a7f9fc5eae
-
 # git checkout 'revert-kernel-4.14'
 # Revert "move msm8996 devices to kernel 4.14"
 apply_commit 8bea33cf78921e9eb58d4523809fb9c91ca56388
+
+# git checkout 'k4.9-guard'
+# PlatformConfig: Only use DRM/SDE on 4.14
+apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
 popd
 
 

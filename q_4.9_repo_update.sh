@@ -91,13 +91,15 @@ git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
 popd
 
 pushd $ANDROOT/device/sony/common
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
+#LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
+#(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+#do_if_online git fetch ix5
 
-# git checkout 'revert-new-media'
-# Revert "TEMP: use the new media platform for all devices"
-apply_commit 2babda1d5e2599be85e2f406666100ac3e7b7ae8
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
+
+# git checkout 'k4.9-guard'
+# TEMP: Kernel 4.9 backward compat
+apply_pull_commit 666 54987bded2b9011b26704d7f57788c9213c4499f
 popd
 
 

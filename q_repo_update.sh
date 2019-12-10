@@ -78,6 +78,24 @@ echo ""
 
 
 pushd $ANDROOT/kernel/sony/msm-4.14/kernel
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/kernel"
+# kbuild: initialize CLANG_FLAGS correctly in the top Makefile
+apply_pull_commit 2120 d3fdff3b7d366bf9c846724ce444c94c79637b41
+# Makefile: Fix qcom's clang merge mess
+apply_pull_commit 2120 edf2fb34f09d8336eecfc171a411ee5d1a6a97fe
+# kbuild: consolidate Clang compiler flags
+apply_pull_commit 2120 7789cbc2bc884ae53fcfed902c10f4fcbb53aff9
+# kbuild: clang: choose GCC_TOOLCHAIN_DIR not on LD
+apply_pull_commit 2120 d19481bcedca88154bbf32d19fdc1cd17bfa48a6
+# kbuild: fix false positive warning/error about missing libelf
+apply_pull_commit 2120 65917fd7f6e1774a73296bad548a6ba998a31530
+# kbuild: add -no-integrated-as Clang option unconditionally
+apply_pull_commit 2120 1cf4cbf61c93ee41ae8b6db35828c4828240b100
+# kbuild: allow to use GCC toolchain not in Clang search path
+apply_pull_commit 2120 3ce88ea4c3ff1fcdd9bd3213a9035d0360aa7873
+# kconfig: lxdialog: Stub out pkg-config for Android Q build system
+apply_pull_commit 2120 30a925da2ef63fa0952217e5007428fce4a68dcd
+
 # TEMP: Build-able makefile for qr and 4.14
 git am < $PATCHES_PATH/q-kernel-4.14.patch
 popd
@@ -159,6 +177,11 @@ apply_commit 19f8a85dcd7d2f1412579b1f0d8da7400552882f
 # git checkout 'treble-buildvars'
 # platform/Platform: Enable VNDK, linker ns
 apply_commit 25e58e5989bb4f50845e83b0349811102b5a69b3
+
+# TODO: Remove me once merged into Q/master
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tone"
+# platform.mk: Move KERNEL_PATH to common
+apply_pull_commit 188 5337faa4a7222158e312c498128ee2bc0bd74c11
 popd
 
 
@@ -170,6 +193,13 @@ do_if_online git fetch ix5
 # git checkout 'avb-allow-disable-verity'
 # PlatformConfig: Allow unverified images
 apply_commit 28915c56a25f9965aa22487366ba69ed8e78574b
+
+# TODO: Remove me once merged into Q/master
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tama"
+# PlatformConfig: (Unconditionally) TARGET_NEEDS_DTBOIMAGE
+apply_pull_commit 76 844349867e5853cfcf9d669518aba2f3d9b4c7bb
+# platform.mk: Move KERNEL_PATH to common
+apply_pull_commit 76 eac5da5a1506de78b6dbb22f64777ae17dbb6d32
 popd
 
 
@@ -189,6 +219,12 @@ apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
 # git checkout 'rgbcir'
 # Add preliminary RGBCIR calibration file
 #apply_commit a0253f3de75c52bccb9275ee7eda6cd2f9db539c
+popd
+
+pushd $ANDROOT/device/sony/apollo
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-apollo"
+# BoardConfig: Unify DTBOIMAGE defs in tama+common
+apply_pull_commit 23 19243695b21e1096f3df451161cc0a6bcbd9be8d
 popd
 
 # Disabled for now

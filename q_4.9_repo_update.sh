@@ -108,9 +108,9 @@ LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
 do_if_online git fetch ix5
 
-# git checkout 'revert-kernel-4.14'
+# git checkout 'revert-kernel-4.14-rebased'
 # Revert "move msm8996 devices to kernel 4.14"
-apply_commit 8bea33cf78921e9eb58d4523809fb9c91ca56388
+apply_commit revert-kernel-4.14-rebased
 
 # git checkout 'k4.9-guard'
 # PlatformConfig: Only use DRM/SDE on 4.14

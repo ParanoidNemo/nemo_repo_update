@@ -156,6 +156,14 @@ LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # https://github.com/sonyxperiadev/device-sony-common/pull/616
 # power: No subsystem stats in user builds
 apply_pull_commit 616 76fc5c2fb36a3f1bfe24d51daa04caeb5ce14fdb
+
+# https://github.com/sonyxperiadev/device-sony-common/pull/669
+# Move BUILD_KERNEL to CommonConfig
+apply_pull_commit 669 86022be6c8db1b705febb8542180ae455fee8635
+# Move setting KERNEL_PATH to common
+apply_pull_commit 669 c750ecfbbe9c967227e7e80994dce0e9d6bbddb2
+# CommonConfig: Unify DTBOIMAGE vars
+apply_pull_commit 669 9dd2ee55a134c3b5cbca847fba25d15e69f36597
 popd
 
 

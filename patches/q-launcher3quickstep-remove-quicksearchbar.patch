@@ -1,19 +1,19 @@
-From f9748417e9dfe08585e7552a6e371116408a7f28 Mon Sep 17 00:00:00 2001
+From 796198ade324d1dfaf52d27ed7c951eef1087f3f Mon Sep 17 00:00:00 2001
 From: Anonymous <none@none.none>
-Date: Sun, 8 Sep 2019 17:15:19 +0200
+Date: Wed, 11 Dec 2019 17:16:30 +0100
 Subject: [PATCH] Launcher3QuickStep: Remove useless QuickSearchbar
 
-Change-Id: Id2fd10dad2e3cff499aa24ffc79fed066ad31c96
+Change-Id: I559299cd7b5940d59a4c502385c382e92c717f68
 ---
  src/com/android/launcher3/config/BaseFlags.java | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/com/android/launcher3/config/BaseFlags.java b/src/com/android/launcher3/config/BaseFlags.java
-index 45639e0a4..5e5590e0b 100644
+index 025087b9d..d1c21a607 100644
 --- a/src/com/android/launcher3/config/BaseFlags.java
 +++ b/src/com/android/launcher3/config/BaseFlags.java
-@@ -67,7 +67,7 @@ abstract class BaseFlags {
-     public static final boolean LAUNCHER3_PROMISE_APPS_IN_ALL_APPS = false;
+@@ -66,7 +66,7 @@ public abstract class BaseFlags {
+                     "Adds a promise icon to the home screen for new install sessions.");
  
      // Enable moving the QSB on the 0th screen of the workspace
 -    public static final boolean QSB_ON_FIRST_SCREEN = true;
@@ -22,5 +22,5 @@ index 45639e0a4..5e5590e0b 100644
      public static final TogglableFlag EXAMPLE_FLAG = new TogglableFlag("EXAMPLE_FLAG", true,
              "An example flag that doesn't do anything. Useful for testing");
 -- 
-2.23.0
+2.24.1
 

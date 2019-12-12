@@ -72,6 +72,13 @@ git am < $PATCHES_PATH/dtsi-tone-conjure-oem-into-vendor.patch
 git am < $PATCHES_PATH/dtsi-loire-conjure-oem-into-vendor.patch
 popd
 
+pushd $ANDROOT/kernel/sony/msm-4.14/kernel
+# dtsi: tone: conjure oem into /vendor
+git am < $PATCHES_PATH/dtsi-tone-conjure-oem-into-vendor.patch
+# dtsi: loire: conjure oem into /vendor
+git am < $PATCHES_PATH/dtsi-loire-conjure-oem-into-vendor.patch
+popd
+
 pushd $ANDROOT/build/make
 # releasetools: Skip adding compatiblity.zip
 git am < $PATCHES_PATH/build-releasetools-skip-compatiblity-zip.patch
@@ -80,17 +87,15 @@ popd
 pushd $ANDROOT/device/sony/common
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+
+# TODO: Unused as of now
 # Revert: Switch selinux to enforcing
 # (needed because there might be problems with misbehaving GSI sepolicies)
-git revert --no-edit selinux-enforcing-temp-tag
+#git revert --no-edit selinux-enforcing-temp-tag
 
 # git checkout 'treble-odm'
 # Use oem as /vendor and add treble quirks
 apply_commit 2ba4c51c8952619d4df40ed16ec91f4c16924b6b
-
-# git checkout 'extra-odm-symlinks'
-# Add extra odm symlinks
-#apply_commit 0204402094868621e7c859d1521d7f5d4fda3259
 popd
 
 

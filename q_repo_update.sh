@@ -142,6 +142,17 @@ LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
 do_if_online git fetch ix5
 
+# TODO: Unused as of now
+# git checkout 'selinux-enforcing'
+# Switch selinux to enforcing
+#apply_commit 1fc8e752c33ae07fe8c8f6d48abb2d1324b64536
+#set +e
+#if [ $(git tag -l "selinux-enforcing-temp-tag") ]; then
+#    git tag -d selinux-enforcing-temp-tag
+#fi
+#set -e
+#git tag selinux-enforcing-temp-tag
+
 # git checkout 'add-vendor-ix5'
 # Include vendor-ix5 via common.mk
 apply_commit 46965a6dcae27d4358a53dacca1eb8429bff9e70

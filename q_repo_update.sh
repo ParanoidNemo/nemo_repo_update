@@ -78,23 +78,7 @@ echo ""
 
 
 pushd $ANDROOT/kernel/sony/msm-4.14/kernel
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/kernel"
-# kconfig: lxdialog: Stub out pkg-config for Android Q build system
-apply_pull_commit 2120 30a925da2ef63fa0952217e5007428fce4a68dcd
-# kbuild: allow to use GCC toolchain not in Clang search path
-apply_pull_commit 2120 3ce88ea4c3ff1fcdd9bd3213a9035d0360aa7873
-# kbuild: add -no-integrated-as Clang option unconditionally
-apply_pull_commit 2120 1cf4cbf61c93ee41ae8b6db35828c4828240b100
-# kbuild: fix false positive warning/error about missing libelf
-apply_pull_commit 2120 65917fd7f6e1774a73296bad548a6ba998a31530
-# kbuild: clang: choose GCC_TOOLCHAIN_DIR not on LD
-apply_pull_commit 2120 d19481bcedca88154bbf32d19fdc1cd17bfa48a6
-# kbuild: consolidate Clang compiler flags
-apply_pull_commit 2120 7789cbc2bc884ae53fcfed902c10f4fcbb53aff9
-# Makefile: Fix qcom's clang merge mess
-apply_pull_commit 2120 edf2fb34f09d8336eecfc171a411ee5d1a6a97fe
-# kbuild: initialize CLANG_FLAGS correctly in the top Makefile
-apply_pull_commit 2120 d3fdff3b7d366bf9c846724ce444c94c79637b41
+#LINK=$HTTP && LINK+="://github.com/sonyxperiadev/kernel"
 
 # TEMP: Build-able makefile for qr and 4.14
 git am < $PATCHES_PATH/q-kernel-4.14.patch

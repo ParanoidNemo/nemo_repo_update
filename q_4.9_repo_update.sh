@@ -110,7 +110,7 @@ do_if_online git fetch ix5
 
 # git checkout 'revert-kernel-4.14-rebased'
 # Revert "move msm8996 devices to kernel 4.14"
-apply_commit revert-kernel-4.14-rebased
+apply_commit 51e624b5800c777e16f4b66b8af9e37248528db1
 
 # git checkout 'k4.9-guard'
 # PlatformConfig: Only use DRM/SDE on 4.14

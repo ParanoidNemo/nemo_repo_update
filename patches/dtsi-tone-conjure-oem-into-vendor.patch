@@ -21,7 +21,7 @@ index 856b4aaac054..124685c19131 100644
  				};
  				system {
 @@ -53,8 +53,8 @@
- 					fsmgr_flags = "wait,verify";
+ 					fsmgr_flags = "wait";
  					status = "ok";
  				};
 -				odm {

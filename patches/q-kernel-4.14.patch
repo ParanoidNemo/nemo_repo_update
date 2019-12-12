@@ -1,4 +1,4 @@
-From bb0887fbc8ea91218f8d04f3fa7709b6f09fbdfe Mon Sep 17 00:00:00 2001
+From e01b158f0a71e9cb352e6d049f0f1c58bf8cbe1c Mon Sep 17 00:00:00 2001
 From: ix5 <ix5@users.noreply.github.com>
 Date: Tue, 10 Dec 2019 11:30:33 +0100
 Subject: [PATCH] Build-able Android.mk for Q and 4.14
@@ -33,7 +33,7 @@ Needed changes in `device/sony/*`:
 
 diff --git a/Android.mk b/Android.mk
 new file mode 100644
-index 000000000000..56b7ce373f0e
+index 000000000000..82e870a3adf5
 --- /dev/null
 +++ b/Android.mk
 @@ -0,0 +1,436 @@
@@ -402,7 +402,7 @@ index 000000000000..56b7ce373f0e
 +
 +# Install it
 +$(PRODUCT_OUT)/kernel: $(TARGET_PREBUILT_INT_KERNEL) | $(ACP)
-+	$(ACP) $(TARGET_PREBUILT_INT_KERNEL) $(PRODUCT_OUT)/kernel
++	$(ACP) $(KERNEL_SRC)/arch/$(KERNEL_ARCH)/boot/$(TARGET_PREBUILT_INT_KERNEL_TYPE) $(PRODUCT_OUT)/kernel
 +
 +$(KERNEL_DTB_STAMP): $(KERNEL_OUT_STAMP) $(KERNEL_CONFIG) | $(ACP)
 +	$(hide) if grep -q '^CONFIG_OF=y' $(KERNEL_CONFIG) ; then \
@@ -590,5 +590,5 @@ index 5830670feae1..bc2e13b5dc6f 100644
  CFLAGS += -Wall -O2
  CFLAGS += -D__EXPORTED_HEADERS__ -I../../include/uapi -I../../include
 -- 
-2.24.0
+2.24.1
 

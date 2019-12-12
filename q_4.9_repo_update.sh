@@ -99,7 +99,7 @@ LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 
 # git checkout 'k4.9-guard'
 # TEMP: Kernel 4.9 backward compat
-apply_pull_commit 666 54987bded2b9011b26704d7f57788c9213c4499f
+apply_pull_commit 666 b9ee1b0a4067fc1c153e5bae178d44a21d95b90f
 popd
 
 

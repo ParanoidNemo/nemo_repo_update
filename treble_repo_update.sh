@@ -103,7 +103,7 @@ do_if_online git fetch ix5
 
 # git checkout 'treble-odm-2'
 # Use oem as /vendor and add treble quirks
-apply_commit faefaf7cdbafbb38230f0ecd9c07c3a6d69ce546
+apply_commit 7b4b5708ab586a72c80bc418910390c7263720b2
 popd
 
 
@@ -113,7 +113,7 @@ LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
 do_if_online git fetch ix5
 # git checkout 'treble-odm-2'
 # Use oem as /vendor
-apply_commit 025f56891b9d6ec3a86f0c84fab534119a3b2006
+apply_commit a907c3aa57bc4acc6ab9faa7a112f4563e1d63c4
 popd
 
 # TODO: Disabled for now, nobody cares about loire :-/

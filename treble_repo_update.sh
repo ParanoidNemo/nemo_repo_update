@@ -54,6 +54,13 @@ apply_pull_commit() {
     fi
 }
 
+do_if_online() {
+    if [ -z $OFFLINE ]
+    then
+        $@
+    fi
+}
+
 echo ""
 echo "  ████████╗██████╗ ███████╗██████╗ ██╗     ███████╗"
 echo "  ╚══██╔══╝██╔══██╗██╔════╝██╔══██╗██║     ██╔════╝"
@@ -87,33 +94,37 @@ popd
 pushd $ANDROOT/device/sony/common
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+do_if_online git fetch ix5
 
 # TODO: Unused as of now
 # Revert: Switch selinux to enforcing
 # (needed because there might be problems with misbehaving GSI sepolicies)
 #git revert --no-edit selinux-enforcing-temp-tag
 
-# git checkout 'treble-odm'
+# git checkout 'treble-odm-2'
 # Use oem as /vendor and add treble quirks
-apply_commit 2ba4c51c8952619d4df40ed16ec91f4c16924b6b
+apply_commit faefaf7cdbafbb38230f0ecd9c07c3a6d69ce546
 popd
 
 
 pushd $ANDROOT/device/sony/tone
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-# git checkout 'treble-odm'
+do_if_online git fetch ix5
+# git checkout 'treble-odm-2'
 # Use oem as /vendor
 apply_commit 025f56891b9d6ec3a86f0c84fab534119a3b2006
 popd
 
-pushd $ANDROOT/device/sony/loire
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-loire"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-# git checkout 'treble-odm'
-# Use oem as /vendor
-apply_commit 1170e85e4567e44314eff0b55566957632c8b2bc
-popd
+# TODO: Disabled for now, nobody cares about loire :-/
+#pushd $ANDROOT/device/sony/loire
+#LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-loire"
+#(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+#do_if_online git fetch ix5
+## git checkout 'treble-odm'
+## Use oem as /vendor
+#apply_commit 1170e85e4567e44314eff0b55566957632c8b2bc
+#popd
 
 pushd $ANDROOT/system/core
 # init: Always allow permissive

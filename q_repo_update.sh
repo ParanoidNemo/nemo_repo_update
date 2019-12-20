@@ -134,6 +134,15 @@ pushd $ANDROOT/packages/modules/NetworkStack
 git am < $PATCHES_PATH/q-networkstack-remove-libapf.patch
 popd
 
+pushd $ANDROOT/device/sony/sepolicy
+LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-sepolicy"
+(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+do_if_online git fetch ix5
+# git checkout 'gatekeeper-4.9-qti-compat'
+# TEMP: gatekeeper: Add 4.9 QTI compat
+apply_commit ca356bc5abfa6a45ff5b82e8d5c8dc43eff0865d
+popd
+
 pushd $ANDROOT/device/sony/common
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK

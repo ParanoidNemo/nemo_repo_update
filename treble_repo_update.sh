@@ -79,12 +79,13 @@ git am < $PATCHES_PATH/dtsi-tone-conjure-oem-into-vendor.patch
 git am < $PATCHES_PATH/dtsi-loire-conjure-oem-into-vendor.patch
 popd
 
-pushd $ANDROOT/kernel/sony/msm-4.14/kernel
-# dtsi: tone: conjure oem into /vendor
-git am < $PATCHES_PATH/dtsi-tone-conjure-oem-into-vendor.patch
-# dtsi: loire: conjure oem into /vendor
-git am < $PATCHES_PATH/dtsi-loire-conjure-oem-into-vendor.patch
-popd
+# TODO
+#pushd $ANDROOT/kernel/sony/msm-4.14/kernel
+## dtsi: tone: conjure oem into /vendor
+#git am < $PATCHES_PATH/dtsi-tone-conjure-oem-into-vendor.patch
+## dtsi: loire: conjure oem into /vendor
+#git am < $PATCHES_PATH/dtsi-loire-conjure-oem-into-vendor.patch
+#popd
 
 pushd $ANDROOT/build/make
 # releasetools: Skip adding compatiblity.zip

@@ -172,7 +172,7 @@ apply_pull_commit 669 86022be6c8db1b705febb8542180ae455fee8635
 # Move setting KERNEL_PATH to common
 apply_pull_commit 669 c750ecfbbe9c967227e7e80994dce0e9d6bbddb2
 # CommonConfig: Unify DTBOIMAGE vars
-apply_pull_commit 669 f39ace9b5e6d0b2151dbf1b3381d25192f9fdbb9
+apply_pull_commit 669 d04944ebbb3682ea11de7fd6fafd0ae6f5a291b3
 
 # git checkout 'treble-buildvars-simplify'
 # https://github.com/sonyxperiadev/device-sony-common/pull/675

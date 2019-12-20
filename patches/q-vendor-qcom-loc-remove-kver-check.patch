@@ -1,0 +1,24 @@
+From bb4d05e7d39560e5fedc1fedea4157daed56a8d6 Mon Sep 17 00:00:00 2001
+From: Anonymous <none@none.none>
+Date: Fri, 20 Dec 2019 16:24:08 +0100
+Subject: [PATCH] Android.mk: Remove Kernel version check
+
+---
+ Android.mk | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/Android.mk b/Android.mk
+index 330d1f2..5f37c30 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -1,7 +1,5 @@
+ ifeq ($(PRODUCT_PLATFORM_SOD),true)
+-ifeq ($(TARGET_KERNEL_VERSION), 4.14)
+ LOCAL_PATH := $(call my-dir)
+ include $(LOCAL_PATH)/build/target_specific_features.mk
+ include $(call all-makefiles-under,$(LOCAL_PATH))
+ endif
+-endif
+-- 
+2.24.1
+

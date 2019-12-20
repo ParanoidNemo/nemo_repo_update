@@ -63,75 +63,40 @@ do_if_online() {
 }
 
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
+echo "       ██╗  ██╗    ██╗  ██╗   █████╗"
+echo "       ██║ ██╔╝    ██║  ██║  ██╔══██╗"
+echo "       █████╔╝     ███████║  ╚██████║"
+echo "       ██╔═██╗     ╚════██║   ╚═══██║"
+echo "       ██║  ██╗         ██║██╗█████╔╝"
+echo "       ╚═╝  ╚═╝         ╚═╝╚═╝╚════╝"
 echo ""
 echo ""
-echo "         applying ix5 patches..."
+echo "         applying Kernel 4.9 patches..."
 echo ""
-
-
-pushd $ANDROOT/kernel/sony/msm-4.9/kernel
-# Enable wakeup_gesture in dtsi table
-# You need to discard vendor-sony-kernel or the build system will use
-# precompiled dtb files, thus rendering this patch useless
-#git am < $PATCHES_PATH/kernel-dtsi-wakeup.patch
-# tone: panel: set min brightness to 1.2mA
-git am < $PATCHES_PATH/panel-minimum-brightness.patch
-# dts: tone: Kill verity
-git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
-# Update makefiles for Android Q and clang
-git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
-popd
 
 pushd $ANDROOT/device/sony/common
-#LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
-#(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-#do_if_online git fetch ix5
-
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
-
-# git checkout 'k4.9-guard'
-# TEMP: Kernel 4.9 backward compat
-apply_pull_commit 666 b9ee1b0a4067fc1c153e5bae178d44a21d95b90f
+# revert: liblights: Migrate to kernel 4.14 LED class for RGB tri-led
+git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
 popd
 
-
-pushd $ANDROOT/device/sony/tone
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
-
-# git checkout 'revert-kernel-4.14-rebased'
-# Revert "move msm8996 devices to kernel 4.14"
-apply_commit 51e624b5800c777e16f4b66b8af9e37248528db1
-
-# git checkout 'k4.9-guard'
-# PlatformConfig: Only use DRM/SDE on 4.14
-apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
-popd
 
 # because "set -e" is used above, when we get to this point, we know
 # all patches were applied successfully.
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
+echo "       ██╗  ██╗    ██╗  ██╗   █████╗"
+echo "       ██║ ██╔╝    ██║  ██║  ██╔══██╗"
+echo "       █████╔╝     ███████║  ╚██████║"
+echo "       ██╔═██╗     ╚════██║   ╚═══██║"
+echo "       ██║  ██╗         ██║██╗█████╔╝"
+echo "       ╚═╝  ╚═╝         ╚═╝╚═╝╚════╝"
 echo ""
 echo ""
-echo "         all ix5 patches applied successfully!"
+echo "    all Kernel 4.9 patches applied successfully!"
+echo ""
+echo "    keep in mind this is VERY VERY UGLY!!!"
+echo "    need to revert if building for 4.14..."
 echo ""
 
 
 set +e
+

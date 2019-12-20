@@ -84,6 +84,19 @@ pushd $ANDROOT/kernel/sony/msm-4.14/kernel
 git am < $PATCHES_PATH/q-kernel-4.14.patch
 popd
 
+pushd $ANDROOT/kernel/sony/msm-4.9/kernel
+# Enable wakeup_gesture in dtsi table
+# You need to discard vendor-sony-kernel or the build system will use
+# precompiled dtb files, thus rendering this patch useless
+#git am < $PATCHES_PATH/kernel-dtsi-wakeup.patch
+# tone: panel: set min brightness to 1.2mA
+git am < $PATCHES_PATH/panel-minimum-brightness.patch
+# dts: tone: Kill verity
+git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
+# Update makefiles for Android Q and clang
+git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
+popd
+
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
 git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch
@@ -152,17 +165,42 @@ LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # power: No subsystem stats in user builds
 apply_pull_commit 616 76fc5c2fb36a3f1bfe24d51daa04caeb5ce14fdb
 
+# git checkout 'kernel-rework'
 # https://github.com/sonyxperiadev/device-sony-common/pull/669
 # Move BUILD_KERNEL to CommonConfig
 apply_pull_commit 669 86022be6c8db1b705febb8542180ae455fee8635
 # Move setting KERNEL_PATH to common
 apply_pull_commit 669 c750ecfbbe9c967227e7e80994dce0e9d6bbddb2
 # CommonConfig: Unify DTBOIMAGE vars
-apply_pull_commit 669 9dd2ee55a134c3b5cbca847fba25d15e69f36597
+apply_pull_commit 669 f39ace9b5e6d0b2151dbf1b3381d25192f9fdbb9
+
+# git checkout 'treble-buildvars-simplify'
+# https://github.com/sonyxperiadev/device-sony-common/pull/675
+# common: Simplify treble buildvars, add VNDK pkg
+apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
+
+# git checkout 'k4.9-guard-3'
+# https://github.com/sonyxperiadev/device-sony-common/pull/666
+# TEMP: Kernel 4.9 backward compat
+apply_pull_commit 666 c7b6ce81db221de09014693c63accad820d023d9
+
+LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
+# git checkout 'treble-odm-2'
+# Use oem as /vendor and add treble quirks
+apply_commit c8f8ab10469f2b42fce169404b3a3b793afedbb1
+
+# git checkout 'k4.9-re-add-qt-km-gatekeeper'
+# common: Add 4.9 gatekeeper/keymaster compat
+apply_commit f12d93b221a1ce312e8db1589fd925aa04d51244
 popd
 
 
 pushd $ANDROOT/device/sony/tone
+# TODO: Remove me once merged into Q/master
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tone"
+# platform.mk: Move KERNEL_PATH to common
+apply_pull_commit 188 5337faa4a7222158e312c498128ee2bc0bd74c11
+
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
 do_if_online git fetch ix5
@@ -173,14 +211,17 @@ apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
 # Disable dm-verity
 apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
 
-# git checkout 'treble-buildvars'
-# platform/Platform: Enable VNDK, linker ns
-apply_commit 25e58e5989bb4f50845e83b0349811102b5a69b3
+# git checkout 'revert-kernel-4.14-rebased'
+# Revert "move msm8996 devices to kernel 4.14"
+apply_commit 51e624b5800c777e16f4b66b8af9e37248528db1
 
-# TODO: Remove me once merged into Q/master
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tone"
-# platform.mk: Move KERNEL_PATH to common
-apply_pull_commit 188 5337faa4a7222158e312c498128ee2bc0bd74c11
+# git checkout 'k4.9-guard'
+# PlatformConfig: Only use DRM/SDE on 4.14
+apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
+
+# git checkout 'treble-odm-3'
+# Use oem as /vendor
+apply_commit 6b97266e71a56d2a23b576837f84b53b7a433db9
 popd
 
 
@@ -232,8 +273,13 @@ popd
 #popd
 
 pushd $ANDROOT/system/core
-# property_service: Read /odm/build.prop
+# property_service: Also read /odm/build.prop
 git am < $PATCHES_PATH/q-system-core-propertyservice-read-odm-buildprop.patch
+popd
+
+pushd $ANDROOT/vendor/qcom/opensource/location
+# Android.mk: Remove Kernel version check
+git am < $PATCHES_PATH/q-vendor-qcom-loc-remove-kver-check.patch
 popd
 
 pushd $ANDROOT/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9

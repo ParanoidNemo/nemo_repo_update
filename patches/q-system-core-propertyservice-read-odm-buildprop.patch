@@ -1,7 +1,7 @@
 From b1b02ecd1d2adc2c472f4991ea8419f025c0bfa0 Mon Sep 17 00:00:00 2001
 From: Anonymous <none@none.none>
 Date: Tue, 5 Nov 2019 19:14:31 +0100
-Subject: [PATCH] property_service: Read /odm/build.prop
+Subject: [PATCH] property_service: Also read /odm/build.prop
 
 The compat was removed in Q, re-add it to use v9 blobs
 

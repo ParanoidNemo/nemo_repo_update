@@ -276,8 +276,13 @@ LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-apollo"
 apply_pull_commit 23 19243695b21e1096f3df451161cc0a6bcbd9be8d
 popd
 
+pushd $ANDROOT/system/sepolicy
+LINK=$HTTP && LINK+="://android.googlesource.com/platform/system/sepolicy"
+# TODO: Remove me once merged into Q/master
+# property_contexts: Remove compatible guard
+apply_gerrit_cl_commit refs/changes/00/1185400/1 668b7bf07a69e51a6c190d6b366d574b9e4af1d4
+
 # Disabled for now
-#pushd $ANDROOT/system/sepolicy
 #git am < $PATCHES_PATH/q-sepolicy-app-neverallow-exception-matlog.patch
 #popd
 

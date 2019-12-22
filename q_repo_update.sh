@@ -230,7 +230,7 @@ apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
 
 # git checkout 'treble-odm-3'
 # Use oem as /vendor
-apply_commit 6b97266e71a56d2a23b576837f84b53b7a433db9
+apply_commit f6bc9f8d6ad86aebe04146ca2e2d7353851d0bb8
 popd
 
 

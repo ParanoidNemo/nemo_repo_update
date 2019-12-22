@@ -188,15 +188,15 @@ apply_pull_commit 669 d04944ebbb3682ea11de7fd6fafd0ae6f5a291b3
 # common: Simplify treble buildvars, add VNDK pkg
 apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
 
-# git checkout 'k4.9-guard-3'
+# git checkout 'k4.9-guard-4'
 # https://github.com/sonyxperiadev/device-sony-common/pull/666
 # TEMP: Kernel 4.9 backward compat
-apply_pull_commit 666 c7b6ce81db221de09014693c63accad820d023d9
+apply_pull_commit 666 5e50e2aac459f59da9c374557d5c692baaa63abb
 
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
-# git checkout 'treble-odm-2'
+# git checkout 'treble-odm-3'
 # Use oem as /vendor and add treble quirks
-apply_commit 87df5d62743755a0212257176dae744428546b44
+apply_commit e3552cd64513cf5395a7b5c4206eeca0cd2c2c60
 
 # git checkout 'k4.9-re-add-qt-km-gatekeeper'
 # common: Add 4.9 gatekeeper/keymaster compat

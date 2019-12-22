@@ -63,19 +63,24 @@ do_if_online() {
 }
 
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
+echo "      ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗"
+echo "      ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██"╗
+echo "      ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔"╝
+echo "      ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██"╗
+echo "      ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██"║
+echo "      ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═"╝
 echo ""
 echo ""
-echo "         applying ix5 patches..."
+echo "         applying master patches..."
 echo ""
 
+
+pushd $ANDROOT/kernel/sony/msm-4.14/kernel
+#LINK=$HTTP && LINK+="://github.com/sonyxperiadev/kernel"
+
+# TEMP: Build-able makefile for qr and 4.14
+git am < $PATCHES_PATH/q-kernel-4.14.patch
+popd
 
 pushd $ANDROOT/kernel/sony/msm-4.9/kernel
 # Enable wakeup_gesture in dtsi table
@@ -93,6 +98,8 @@ popd
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
 git am < $PATCHES_PATH/master-build-releasetools-allow-flashing-downgrades.patch
+# handheld_product: Remove Browser2, QuickSearchBox
+git am < $PATCHES_PATH/q-build-make-remove-browser2-quicksearchbox.patch
 popd
 
 pushd $ANDROOT/build/soong
@@ -100,14 +107,14 @@ pushd $ANDROOT/build/soong
 git am < $PATCHES_PATH/q-build-soong-fake-libwinpthread.patch
 popd
 
+pushd $ANDROOT/packages/apps/Bluetooth
+# Disable email module for BluetoothInstrumentionTest
+git am < $PATCHES_PATH/q-bluetooth-disable-email-test.patch
+popd
+
 pushd $ANDROOT/packages/apps/Launcher3
 # Launcher3QuickStep: Remove useless QuickSearchbar
 git am < $PATCHES_PATH/q-launcher3quickstep-remove-quicksearchbar.patch
-popd
-
-pushd $ANDROOT/packages/modules/NetworkStack
-# tests: net: Remove libapf deps
-git am < $PATCHES_PATH/master-networkstack-tests-net-Remove-libapf-deps.patch
 popd
 
 pushd $ANDROOT/frameworks/base
@@ -120,22 +127,43 @@ pushd $ANDROOT/hardware/interfaces
 git am < $PATCHES_PATH/q-hardware-interfaces-allow-radio-1-1-.patch
 popd
 
+pushd $ANDROOT/packages/modules/NetworkStack
+# tests: net: Remove libapf deps
+git am < $PATCHES_PATH/master-networkstack-tests-net-Remove-libapf-deps.patch
+popd
+
+pushd $ANDROOT/device/sony/sepolicy
+LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-sepolicy"
+(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+do_if_online git fetch ix5
+# git checkout 'gatekeeper-4.9-qti-compat'
+# TEMP: gatekeeper: Add 4.9 QTI compat
+apply_commit ca356bc5abfa6a45ff5b82e8d5c8dc43eff0865d
+popd
+
 pushd $ANDROOT/device/sony/common
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
 do_if_online git fetch ix5
 
+# TODO: Unused as of now
+# git checkout 'selinux-enforcing'
+# Switch selinux to enforcing
+#apply_commit 1fc8e752c33ae07fe8c8f6d48abb2d1324b64536
+#set +e
+#if [ $(git tag -l "selinux-enforcing-temp-tag") ]; then
+#    git tag -d selinux-enforcing-temp-tag
+#fi
+#set -e
+#git tag selinux-enforcing-temp-tag
+
 # git checkout 'add-vendor-ix5'
 # Include vendor-ix5 via common.mk
-apply_commit 46965a6dcae27d4358a53dacca1eb8429bff9e70
+apply_commit a259a415bc746c55fb4b213010c7ee1bda34d5b1
 
 # git checkout 'init-remove-verity'
 # init: Remove verity statements
 apply_commit 6c33a4a8f5fe4615235df9d7abcfe3644f299672
-
-# git checkout 'revert-new-media'
-# Revert "TEMP: use the new media platform for all devices"
-apply_commit 2babda1d5e2599be85e2f406666100ac3e7b7ae8
 
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # TODO: Remove me once merged into Q/master
@@ -143,10 +171,43 @@ LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-common"
 # https://github.com/sonyxperiadev/device-sony-common/pull/616
 # power: No subsystem stats in user builds
 apply_pull_commit 616 76fc5c2fb36a3f1bfe24d51daa04caeb5ce14fdb
+
+# git checkout 'kernel-rework'
+# https://github.com/sonyxperiadev/device-sony-common/pull/669
+# Move BUILD_KERNEL to CommonConfig
+apply_pull_commit 669 86022be6c8db1b705febb8542180ae455fee8635
+# Move setting KERNEL_PATH to common
+apply_pull_commit 669 c750ecfbbe9c967227e7e80994dce0e9d6bbddb2
+# CommonConfig: Unify DTBOIMAGE vars
+apply_pull_commit 669 d04944ebbb3682ea11de7fd6fafd0ae6f5a291b3
+
+# git checkout 'treble-buildvars-simplify'
+# https://github.com/sonyxperiadev/device-sony-common/pull/675
+# common: Simplify treble buildvars, add VNDK pkg
+apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
+
+# git checkout 'k4.9-guard-3'
+# https://github.com/sonyxperiadev/device-sony-common/pull/666
+# TEMP: Kernel 4.9 backward compat
+apply_pull_commit 666 c7b6ce81db221de09014693c63accad820d023d9
+
+LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
+# git checkout 'treble-odm-2'
+# Use oem as /vendor and add treble quirks
+apply_commit 87df5d62743755a0212257176dae744428546b44
+
+# git checkout 'k4.9-re-add-qt-km-gatekeeper'
+# common: Add 4.9 gatekeeper/keymaster compat
+apply_commit f12d93b221a1ce312e8db1589fd925aa04d51244
 popd
 
 
 pushd $ANDROOT/device/sony/tone
+# TODO: Remove me once merged into Q/master
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tone"
+# platform.mk: Move KERNEL_PATH to common
+apply_pull_commit 188 5337faa4a7222158e312c498128ee2bc0bd74c11
+
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
 (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
 do_if_online git fetch ix5
@@ -157,21 +218,35 @@ apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
 # Disable dm-verity
 apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
 
-# git checkout 'q-product-build-bootimg'
-# platform: Build boot image
-apply_commit 19f8a85dcd7d2f1412579b1f0d8da7400552882f
-
-# git checkout 'treble-buildvars'
-# platform/Platform: Enable VNDK, linker ns
-apply_commit 25e58e5989bb4f50845e83b0349811102b5a69b3
-
-# git checkout 'revert-drm-rendering'
-# Revert "PlatformConfig: enable DRM rendering"
-apply_commit cf890f70a2de9131b8c23e6ad2bbd1a7f9fc5eae
-
-# git checkout 'revert-kernel-4.14'
+# git checkout 'revert-kernel-4.14-rebased'
 # Revert "move msm8996 devices to kernel 4.14"
-apply_commit 8bea33cf78921e9eb58d4523809fb9c91ca56388
+apply_commit 51e624b5800c777e16f4b66b8af9e37248528db1
+
+# git checkout 'k4.9-guard'
+# PlatformConfig: Only use DRM/SDE on 4.14
+apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
+
+# git checkout 'treble-odm-3'
+# Use oem as /vendor
+apply_commit f6bc9f8d6ad86aebe04146ca2e2d7353851d0bb8
+popd
+
+
+pushd $ANDROOT/device/sony/tama
+LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tama"
+(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+do_if_online git fetch ix5
+
+# git checkout 'avb-allow-disable-verity'
+# PlatformConfig: Allow unverified images
+apply_commit 28915c56a25f9965aa22487366ba69ed8e78574b
+
+# TODO: Remove me once merged into Q/master
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tama"
+# PlatformConfig: (Unconditionally) TARGET_NEEDS_DTBOIMAGE
+apply_pull_commit 76 844349867e5853cfcf9d669518aba2f3d9b4c7bb
+# platform.mk: Move KERNEL_PATH to common
+apply_pull_commit 76 eac5da5a1506de78b6dbb22f64777ae17dbb6d32
 popd
 
 
@@ -193,30 +268,31 @@ apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
 #apply_commit a0253f3de75c52bccb9275ee7eda6cd2f9db539c
 popd
 
-pushd $ANDROOT/vendor/qcom/opensource/location
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/vendor-qcom-opensource-location"
-# https://github.com/sonyxperiadev/vendor-qcom-opensource-location/pull/19
-# loc_api: Fix: Use lu in log format
-# TODO: Check whether this needs to be enabled on Q
-#apply_pull_commit 19 173655ffc2775dca6f808020e859850e47311a1b
+pushd $ANDROOT/device/sony/apollo
+LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-apollo"
+# BoardConfig: Unify DTBOIMAGE defs in tama+common
+apply_pull_commit 23 19243695b21e1096f3df451161cc0a6bcbd9be8d
 popd
 
-# TODO: Check whether sonyxperiadev state is enough
-#pushd $ANDROOT/hardware/qcom/display/sde
-#LINK=$HTTP && LINK+="://github.com/sonyxperiadev/hardware-qcom-display"
-## https://github.com/sonyxperiadev/hardware-qcom-display/pull/22
-## hwc2: Fix compile errors in switch statement.
-#apply_pull_commit 22 7da54855b89a67a2f43514f62bedce49f1a4b3c3
-## libqdutils: Fix duplicated header
-#apply_pull_commit 22 32827304b117684a3cd2a2ff3d8d115ffc0246f1
-##  Makefile: Add -fPIC to common_flags
-#apply_pull_commit 22 b3bdde9600dda7f41da63b2c55e14afd77fc5af8
-#popd
+pushd $ANDROOT/system/sepolicy
+LINK=$HTTP && LINK+="://android.googlesource.com/platform/system/sepolicy"
+# TODO: Remove me once merged into Q/master
+# property_contexts: Remove compatible guard
+apply_gerrit_cl_commit refs/changes/00/1185400/1 668b7bf07a69e51a6c190d6b366d574b9e4af1d4
 
 # Disabled for now
-#pushd $ANDROOT/system/sepolicy
 #git am < $PATCHES_PATH/q-sepolicy-app-neverallow-exception-matlog.patch
 #popd
+
+pushd $ANDROOT/system/core
+# property_service: Also read /odm/build.prop
+git am < $PATCHES_PATH/q-system-core-propertyservice-read-odm-buildprop.patch
+popd
+
+pushd $ANDROOT/vendor/qcom/opensource/location
+# Android.mk: Remove Kernel version check
+git am < $PATCHES_PATH/q-vendor-qcom-loc-remove-kver-check.patch
+popd
 
 pushd $ANDROOT/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
 # aarch64: Drop sleep constructor
@@ -230,17 +306,15 @@ popd
 # because "set -e" is used above, when we get to this point, we know
 # all patches were applied successfully.
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
+echo "      ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗"
+echo "      ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██"╗
+echo "      ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔"╝
+echo "      ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██"╗
+echo "      ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██"║
+echo "      ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═"╝
 echo ""
 echo ""
-echo "         all ix5 patches applied successfully!"
+echo "         all master patches applied successfully!"
 echo ""
 
 

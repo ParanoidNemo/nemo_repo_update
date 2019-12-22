@@ -107,11 +107,6 @@ pushd $ANDROOT/build/soong
 git am < $PATCHES_PATH/q-build-soong-fake-libwinpthread.patch
 popd
 
-pushd $ANDROOT/packages/apps/Bluetooth
-# Disable email module for BluetoothInstrumentionTest
-git am < $PATCHES_PATH/q-bluetooth-disable-email-test.patch
-popd
-
 pushd $ANDROOT/packages/apps/Launcher3
 # Launcher3QuickStep: Remove useless QuickSearchbar
 git am < $PATCHES_PATH/q-launcher3quickstep-remove-quicksearchbar.patch

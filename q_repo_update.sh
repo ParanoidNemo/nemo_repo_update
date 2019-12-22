@@ -161,7 +161,7 @@ do_if_online git fetch ix5
 
 # git checkout 'add-vendor-ix5'
 # Include vendor-ix5 via common.mk
-apply_commit 46965a6dcae27d4358a53dacca1eb8429bff9e70
+apply_commit a259a415bc746c55fb4b213010c7ee1bda34d5b1
 
 # git checkout 'init-remove-verity'
 # init: Remove verity statements
@@ -196,7 +196,7 @@ apply_pull_commit 666 c7b6ce81db221de09014693c63accad820d023d9
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 # git checkout 'treble-odm-2'
 # Use oem as /vendor and add treble quirks
-apply_commit c8f8ab10469f2b42fce169404b3a3b793afedbb1
+apply_commit 87df5d62743755a0212257176dae744428546b44
 
 # git checkout 'k4.9-re-add-qt-km-gatekeeper'
 # common: Add 4.9 gatekeeper/keymaster compat

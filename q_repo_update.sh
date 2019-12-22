@@ -122,6 +122,8 @@ popd
 pushd $ANDROOT/frameworks/base
 # Enable development settings by default
 git am < $PATCHES_PATH/q-enable-development-settings-by-default.patch
+# core: Add support for MicroG
+git am < $PATCHES_PATH/q-fwb-core-Add-support-for-MicroG.patch
 popd
 
 pushd $ANDROOT/hardware/interfaces

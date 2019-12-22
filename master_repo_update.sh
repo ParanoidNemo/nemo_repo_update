@@ -78,8 +78,8 @@ echo ""
 pushd $ANDROOT/kernel/sony/msm-4.14/kernel
 #LINK=$HTTP && LINK+="://github.com/sonyxperiadev/kernel"
 
-# TEMP: Build-able makefile for qr and 4.14
-git am < $PATCHES_PATH/q-kernel-4.14.patch
+# TEMP: Build-able makefile for Q and 4.14
+#git am < $PATCHES_PATH/q-kernel-4.14.patch
 popd
 
 pushd $ANDROOT/kernel/sony/msm-4.9/kernel

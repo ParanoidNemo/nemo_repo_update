@@ -1,15 +1,15 @@
-From 0d9c4bdbc4c9a7fab70c804d8347892fc8b7a646 Mon Sep 17 00:00:00 2001
+From a92d9824ce9509286ded3fb9456f11993bb49563 Mon Sep 17 00:00:00 2001
 From: Anonymous <none@none.none>
-Date: Sun, 20 Oct 2019 11:04:30 +0200
-Subject: [PATCH] tests: net: Remove libapf deps
+Date: Sun, 22 Dec 2019 16:20:34 +0100
+Subject: [PATCH] HACK: tests: net: Remove libapf deps
 
-Change-Id: Ib402f70a0796565b61e8e1666bcc4d169c52b554
+Change-Id: Ifb55138cf503c3d6254d8116c75e415d58a2c646
 ---
  tests/unit/jni/Android.bp | 4 ----
  1 file changed, 4 deletions(-)
 
 diff --git a/tests/unit/jni/Android.bp b/tests/unit/jni/Android.bp
-index 9520520..bb3f2a1 100644
+index 4bef7c8..27a082f 100644
 --- a/tests/unit/jni/Android.bp
 +++ b/tests/unit/jni/Android.bp
 @@ -24,9 +24,6 @@ cc_library_shared {
@@ -23,7 +23,7 @@ index 9520520..bb3f2a1 100644
          "libbinder",
          "liblog",
 @@ -35,7 +32,6 @@ cc_library_shared {
-         "netd_aidl_interface-V2-cpp",
+         "netd_aidl_interface-cpp",
      ],
      static_libs: [
 -        "libapf",
@@ -31,5 +31,5 @@ index 9520520..bb3f2a1 100644
      ],
  }
 -- 
-2.23.0
+2.24.1
 

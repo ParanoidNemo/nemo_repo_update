@@ -271,9 +271,9 @@ popd
 
 pushd $ANDROOT/system/sepolicy
 LINK=$HTTP && LINK+="://android.googlesource.com/platform/system/sepolicy"
-# TODO: Remove me once merged into Q/master
-# property_contexts: Remove compatible guard
-apply_gerrit_cl_commit refs/changes/00/1185400/1 668b7bf07a69e51a6c190d6b366d574b9e4af1d4
+# TODO: Remove me once merged AOSP master
+# property_contexts: Drop COMPATIBLE_PROP guard
+apply_gerrit_cl_commit refs/changes/04/1185404/2 dc7275cc8564597618e556169e92050545ba5068
 
 # Disabled for now
 #git am < $PATCHES_PATH/q-sepolicy-app-neverallow-exception-matlog.patch

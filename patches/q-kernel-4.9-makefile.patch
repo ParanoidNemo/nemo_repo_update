@@ -1,4 +1,4 @@
-From 819a579aaa45224c5c3154a4b4dbea81925bef47 Mon Sep 17 00:00:00 2001
+From b8d024188ab0838a0b0f5d11a91e21794a38c33a Mon Sep 17 00:00:00 2001
 From: ix5 <ix5@users.noreply.github.com>
 Date: Tue, 20 Aug 2019 20:04:25 +0200
 Subject: [PATCH] Update makefiles for Android Q and clang
@@ -23,12 +23,47 @@ TODO: Amend build guides to include perl as a prerequisite!
 (Though probably installed by default on pretty much any machine)
 https://developer.sony.com/develop/open-devices/guides/aosp-build-instructions/build-aosp-android-p-9-0-0#tutorial-step-2
 ---
+ Android.bp                |  27 -----
  Android.mk                | 236 +++++++++++++++++++++++++-------------
  Makefile                  |   6 +-
  backports/compat/Makefile |   2 +-
  lib/Makefile              |   2 +-
- 4 files changed, 159 insertions(+), 87 deletions(-)
+ 5 files changed, 159 insertions(+), 114 deletions(-)
+ delete mode 100644 Android.bp
 
+diff --git a/Android.bp b/Android.bp
+deleted file mode 100644
+index 4341e3a71dad..000000000000
+--- a/Android.bp
++++ /dev/null
+@@ -1,27 +0,0 @@
+-cc_binary_host {
+-    name: "unifdef",
+-    srcs: ["scripts/unifdef.c"],
+-    sanitize: {
+-        never: true,
+-    }
+-}
+-
+-gensrcs {
+-    name: "qseecom-kernel-includes",
+-
+-    // move to out/ as root for header generation because of scripts/unifdef
+-    // storage - at the expense of extra ../ references
+-    cmd: "pushd out && mkdir -p scripts && rm -f scripts/unifdef && ln -s ../../$(location unifdef) scripts/unifdef && ../$(location scripts/headers_install.sh) `dirname ../$(out)` ../ $(in) && popd",
+-
+-    tools: ["unifdef"],
+-    tool_files: ["scripts/headers_install.sh"],
+-    export_include_dirs: ["include/uapi"],
+-    srcs: ["include/uapi/linux/qseecom.h"],
+-    output_extension: "h",
+-}
+-
+-cc_library_headers {
+-    name: "qseecom-kernel-headers",
+-    generated_headers: ["qseecom-kernel-includes"],
+-    export_generated_headers: ["qseecom-kernel-includes"],
+-}
 diff --git a/Android.mk b/Android.mk
 index f74c262caa3d..0b85cf57aa48 100644
 --- a/Android.mk
@@ -389,7 +424,7 @@ index f74c262caa3d..0b85cf57aa48 100644
  
  endif # Sony Kernel version
 diff --git a/Makefile b/Makefile
-index 11998e82c4b8..c6809acfe74b 100644
+index 5fb1cd195f6c..4fd0ff73365f 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -301,8 +301,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
@@ -398,8 +433,8 @@ index 11998e82c4b8..c6809acfe74b 100644
  
 -HOSTCC       = gcc
 -HOSTCXX      = g++
-+HOSTCC       = $(HOSTCC)
-+HOSTCXX      = $(HOSTCXX)
++HOSTCC      ?= gcc
++HOSTCXX     ?= g++
  HOSTCFLAGS   := -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
  HOSTCXXFLAGS = -O2
  
@@ -408,7 +443,7 @@ index 11998e82c4b8..c6809acfe74b 100644
  INSTALLKERNEL  := installkernel
  DEPMOD		= /sbin/depmod
 -PERL		= perl
-+PERL		= $(PERL)
++PERL		?= perl
  PYTHON		= python
  CHECK		= sparse
  
@@ -426,10 +461,10 @@ index bb2537e84254..db1d01b5efeb 100644
  compat-$(CONFIG_BACKPORT_BPAUTO_BUILD_SYSTEM_DATA_VERIFICATION) += lib-oid_registry.o
  compat-$(CONFIG_BACKPORT_BPAUTO_REFCOUNT) += lib-refcount.o
 diff --git a/lib/Makefile b/lib/Makefile
-index a3e5077f6734..06b983e6d12c 100644
+index ec512204e842..8da17c14a4b0 100644
 --- a/lib/Makefile
 +++ b/lib/Makefile
-@@ -223,7 +223,7 @@ $(obj)/oid_registry_data.c: $(srctree)/include/linux/oid_registry.h \
+@@ -224,7 +224,7 @@ $(obj)/oid_registry_data.c: $(srctree)/include/linux/oid_registry.h \
  	$(call cmd,build_OID_registry)
  
  quiet_cmd_build_OID_registry = GEN     $@
@@ -439,5 +474,5 @@ index a3e5077f6734..06b983e6d12c 100644
  clean-files	+= oid_registry_data.c
  
 -- 
-2.23.0
+2.24.1
 

@@ -79,7 +79,7 @@ pushd $ANDROOT/kernel/sony/msm-4.14/kernel
 #LINK=$HTTP && LINK+="://github.com/sonyxperiadev/kernel"
 
 # TEMP: Build-able makefile for Q and 4.14
-#git am < $PATCHES_PATH/q-kernel-4.14.patch
+#git am < $PATCHES_PATH/q-kernel-4.14-makefile.patch
 popd
 
 pushd $ANDROOT/kernel/sony/msm-4.9/kernel
@@ -92,7 +92,7 @@ git am < $PATCHES_PATH/panel-minimum-brightness.patch
 # dts: tone: Kill verity
 git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
 # Update makefiles for Android Q and clang
-git am < $PATCHES_PATH/q-kernel-q-and-clang.patch
+git am < $PATCHES_PATH/q-kernel-4.9-makefile.patch
 popd
 
 pushd $ANDROOT/build/make

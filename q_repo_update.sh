@@ -293,11 +293,6 @@ pushd $ANDROOT/system/core
 git am < $PATCHES_PATH/q-system-core-propertyservice-read-odm-buildprop.patch
 popd
 
-pushd $ANDROOT/vendor/qcom/opensource/location
-# Android.mk: Remove Kernel version check
-git am < $PATCHES_PATH/q-vendor-qcom-loc-remove-kver-check.patch
-popd
-
 pushd $ANDROOT/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
 # aarch64: Drop sleep constructor
 git am < $PATCHES_PATH/q-gcc-sleep-constructor-aarch64.patch

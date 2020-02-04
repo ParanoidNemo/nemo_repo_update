@@ -190,10 +190,10 @@ apply_pull_commit 669 22fb98284747341d175f58143e2417fadf2faf89
 # common: Simplify treble buildvars, add VNDK pkg
 apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
 
-# git checkout 'k4.9-guard-4'
+# git checkout 'k4.9-guard-5'
 # https://github.com/sonyxperiadev/device-sony-common/pull/666
 # TEMP: Kernel 4.9 backward compat
-apply_pull_commit 666 2684706a221b044093fca962f1b740f1bb5c9bb7
+apply_pull_commit 666 915d376cc53473e8763db9c16533f736c0e9977d
 
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 # git checkout 'treble-odm-3'

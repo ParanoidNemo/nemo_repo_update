@@ -203,6 +203,12 @@ apply_commit e3552cd64513cf5395a7b5c4206eeca0cd2c2c60
 # git checkout 'k4.9-re-add-qt-km-gatekeeper'
 # common: Add 4.9 gatekeeper/keymaster compat
 apply_commit f12d93b221a1ce312e8db1589fd925aa04d51244
+
+# git checkout 'overlay-sta-ap'
+# overlay: Move STA-AP configs to platforms
+apply_commit 6a67a1a7f89d87dba1419c70c2abd08c1a35816f
+# CommonConfig: Move dual STA-AP to platforms
+apply_commit f068df37449d04b9286800baf5cec873e991b455
 popd
 
 
@@ -244,6 +250,12 @@ do_if_online git fetch ix5
 # git checkout 'avb-allow-disable-verity'
 # PlatformConfig: Allow unverified images
 apply_commit 28915c56a25f9965aa22487366ba69ed8e78574b
+
+# git checkout 'overlay-sta-ap'
+# overlay: Move STA-AP configs from common
+apply_commit 253c5ddfa055e31e6d7d067a965f72f3e233c0d7
+# CommonConfig: Move dual STA-AP from common
+apply_commit de5c440244a3fe78b92a4a24e36bdbc6ed20390a
 
 # TODO: Remove me once merged into Q/master
 LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tama"

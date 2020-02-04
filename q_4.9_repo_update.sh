@@ -56,7 +56,7 @@ apply_pull_commit() {
 }
 
 do_if_online() {
-    if [ -z $OFFLINE ]
+    if [[ ! $OFFLINE = true ]]
     then
         $@
     fi

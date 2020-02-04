@@ -193,7 +193,7 @@ apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
 # git checkout 'k4.9-guard-5'
 # https://github.com/sonyxperiadev/device-sony-common/pull/666
 # TEMP: Kernel 4.9 backward compat
-apply_pull_commit 666 915d376cc53473e8763db9c16533f736c0e9977d
+apply_pull_commit 666 fdde0f6720cc66607051dd9d55e33dbd54387651
 
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 # git checkout 'treble-odm-3'

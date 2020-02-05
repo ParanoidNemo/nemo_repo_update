@@ -185,21 +185,10 @@ apply_pull_commit 669 c750ecfbbe9c967227e7e80994dce0e9d6bbddb2
 # CommonConfig: Unify DTBOIMAGE vars
 apply_pull_commit 669 22fb98284747341d175f58143e2417fadf2faf89
 
-# git checkout 'treble-buildvars-simplify'
-# https://github.com/sonyxperiadev/device-sony-common/pull/675
-# common: Simplify treble buildvars, add VNDK pkg
-apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
-
 # git checkout 'k4.9-guard-6'
 # https://github.com/sonyxperiadev/device-sony-common/pull/666
 # TEMP: Kernel 4.9 backward compat
 apply_pull_commit 666 e8be6b09fa5e223406d232ffe3b149c27d90867a
-
-# git checkout readd-gps-conf
-# Revert "Remove unused gps.conf; using the one from hardware/qcom/gps."
-apply_pull_commit 681 f18004ce1789f07f1e5dc6f5815f239ebceb809c
-# Revert "Remove gps.conf; already provided by hardware repo."
-apply_pull_commit 681 836385a70fb384ad7e7338ba787a7bf511fac16f
 
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 # git checkout 'treble-odm-3'

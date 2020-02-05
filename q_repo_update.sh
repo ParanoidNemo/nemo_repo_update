@@ -190,10 +190,10 @@ apply_pull_commit 669 22fb98284747341d175f58143e2417fadf2faf89
 # common: Simplify treble buildvars, add VNDK pkg
 apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
 
-# git checkout 'k4.9-guard-5'
+# git checkout 'k4.9-guard-6'
 # https://github.com/sonyxperiadev/device-sony-common/pull/666
 # TEMP: Kernel 4.9 backward compat
-apply_pull_commit 666 c046b3772c80c8fffb1c4b160472cfbea32748dd
+apply_pull_commit 666 e8be6b09fa5e223406d232ffe3b149c27d90867a
 
 # git checkout readd-gps-conf
 # Revert "Remove unused gps.conf; using the one from hardware/qcom/gps."

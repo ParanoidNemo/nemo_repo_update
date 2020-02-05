@@ -195,6 +195,12 @@ apply_pull_commit 675 ea42febdd4e78c3b80c31488c8fc7ca0e6287287
 # TEMP: Kernel 4.9 backward compat
 apply_pull_commit 666 c046b3772c80c8fffb1c4b160472cfbea32748dd
 
+# git checkout readd-gps-conf
+# Revert "Remove unused gps.conf; using the one from hardware/qcom/gps."
+apply_pull_commit 681 f18004ce1789f07f1e5dc6f5815f239ebceb809c
+# Revert "Remove gps.conf; already provided by hardware repo."
+apply_pull_commit 681 836385a70fb384ad7e7338ba787a7bf511fac16f
+
 LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-common"
 # git checkout 'treble-odm-3'
 # Use oem as /vendor and add treble quirks

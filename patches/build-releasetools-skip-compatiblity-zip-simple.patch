@@ -1,0 +1,32 @@
+From 545f4529062d18ebeae7af2bf469abfdc2833f03 Mon Sep 17 00:00:00 2001
+From: Felix <google@ix5.org>
+Date: Wed, 19 Feb 2020 23:23:25 +0100
+Subject: [PATCH] HACK: releasetools: Skip adding compat zip
+
+Forcing the return means the compatiblity.zip archive will
+not be appended to the ota package.
+
+Change-Id: Id431a16029c4cf31bd8350cf6c270b8085bf7408
+---
+ tools/releasetools/ota_from_target_files.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git tools/releasetools/ota_from_target_files.py tools/releasetools/ota_from_target_files.py
+index 27854fd66b..64dfe2ca13 100755
+--- tools/releasetools/ota_from_target_files.py
++++ tools/releasetools/ota_from_target_files.py
+@@ -822,8 +822,9 @@ def AddCompatibilityArchiveIfTrebleEnabled(target_zip, output_zip, target_info,
+ 
+   # Will only proceed if the target has enabled the Treble support (as well as
+   # having a /vendor partition).
+-  if not HasTrebleEnabled(target_zip, target_info):
+-    return
++  #
++  # HACK: Just return here since we don't want compatibility.zip
++  return
+ 
+   # Skip adding the compatibility package as a workaround for b/114240221. The
+   # compatibility will always fail on devices without qualified kernels.
+-- 
+2.25.1
+

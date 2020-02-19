@@ -89,7 +89,9 @@ popd
 
 pushd $ANDROOT/build/make
 # releasetools: Skip adding compatiblity.zip
-git am < $PATCHES_PATH/build-releasetools-skip-compatiblity-zip.patch
+git am < $PATCHES_PATH/build-releasetools-skip-compatiblity-zip-simple.patch
+# HACK: Allow excluding system from ota package
+git am < $PATCHES_PATH/build-releasetools-allow-no-system-ota.patch
 popd
 
 pushd $ANDROOT/device/sony/common

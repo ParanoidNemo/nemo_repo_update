@@ -1,0 +1,113 @@
+From dfb4d39edc33e6181f6e67abb369f957b2e4b3dd Mon Sep 17 00:00:00 2001
+From: Felix <google@ix5.org>
+Date: Wed, 19 Feb 2020 23:13:49 +0100
+Subject: [PATCH] HACK: Allow excluding system from ota package
+
+Based on BUILDING_SYSTEM_IMAGE, which gets set by
+PRODUCT_BUILD_SYSTEM_IMAGE in BoardConfig.mk
+
+Not sure whether this breaks system-as-root and/or
+recovery-from-boot devices...
+
+Change-Id: Id2d2aa8128b4f88ea60e1844f5f872c903c3c0e0
+---
+ core/Makefile                               |  4 +++
+ tools/releasetools/ota_from_target_files.py | 31 +++++++++++++++++----
+ 2 files changed, 29 insertions(+), 6 deletions(-)
+
+diff --git core/Makefile core/Makefile
+index 4253b7200e..e37b8de2a5 100644
+--- core/Makefile
++++ core/Makefile
+@@ -498,6 +498,7 @@ ifeq ($(PRODUCT_RETROFIT_DYNAMIC_PARTITIONS),true)
+ endif
+ 	$(hide) grep 'ro.product.first_api_level' $(intermediate_system_build_prop) >> $@ || true
+ 	$(hide) echo ro.vendor.build.security_patch="$(VENDOR_SECURITY_PATCH)">>$@
++	$(hide) echo ro.vendor.build.version.security_patch="$(VENDOR_SECURITY_PATCH)">>$@
+ 	$(hide) echo ro.vendor.product.cpu.abilist="$(TARGET_CPU_ABI_LIST)">>$@
+ 	$(hide) echo ro.vendor.product.cpu.abilist32="$(TARGET_CPU_ABI_LIST_32_BIT)">>$@
+ 	$(hide) echo ro.vendor.product.cpu.abilist64="$(TARGET_CPU_ABI_LIST_64_BIT)">>$@
+@@ -3984,6 +3985,9 @@ endif
+ ifeq ($(INSTALLED_RECOVERYIMAGE_TARGET),)
+ 	$(hide) echo "no_recovery=true" >> $(zip_root)/META/misc_info.txt
+ endif
++ifndef BUILDING_SYSTEM_IMAGE
++	$(hide) echo "exclude_system=true" >> $(zip_root)/META/misc_info.txt
++endif
+ ifdef BOARD_INCLUDE_RECOVERY_DTBO
+ 	$(hide) echo "include_recovery_dtbo=true" >> $(zip_root)/META/misc_info.txt
+ endif
+diff --git tools/releasetools/ota_from_target_files.py tools/releasetools/ota_from_target_files.py
+index 27854fd66b..505763585a 100755
+--- tools/releasetools/ota_from_target_files.py
++++ tools/releasetools/ota_from_target_files.py
+@@ -306,9 +306,17 @@ class BuildInfo(object):
+     if self._oem_props:
+       assert oem_dicts, "OEM source required for this build"
+ 
++    self._exclude_system = self.info_dict.get("exclude_system") == "true"
+     # These two should be computed only after setting self._oem_props.
+     self._device = self.GetOemProperty("ro.product.device")
+-    self._fingerprint = self.CalculateFingerprint()
++    if self._exclude_system:
++      self._fingerprint = self._fingerprint_of("vendor")
++    else:
++      self._fingerprint = self.CalculateFingerprint()
++
++  @property
++  def exclude_system(self):
++    return self._exclude_system
+ 
+   @property
+   def is_ab(self):
+@@ -360,15 +368,23 @@ class BuildInfo(object):
+   def items(self):
+     return self.info_dict.items()
+ 
+-  def GetBuildProp(self, prop):
++  def GetBuildProp(self, prop, alternate=None):
+     """Returns the inquired build property."""
+     if prop in BuildInfo._RO_PRODUCT_RESOLVE_PROPS:
+       return self._ResolveRoProductBuildProp(prop)
+ 
++    prop_dict = "build.prop"
++    if self.exclude_system:
++      prop_dict = "vendor.build.prop"
++      if prop.startswith("ro.build"):
++        prop = prop.replace("ro.build", "ro.vendor.build", 1)
++      if alternate:
++        prop = alternate
+     try:
+-      return self.info_dict.get("build.prop", {})[prop]
++      return self.info_dict.get(prop_dict, {})[prop]
+     except KeyError:
+-      raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
++      raise common.ExternalError("couldn't find %s in %s" %
++        (prop, prop_dict))
+ 
+   def _ResolveRoProductBuildProp(self, prop):
+     """Resolves the inquired ro.product.* build property"""
+@@ -885,7 +901,8 @@ def WriteFullOTAPackage(input_zip, output_file):
+       metadata=metadata,
+       info_dict=OPTIONS.info_dict)
+ 
+-  assert HasRecoveryPatch(input_zip)
++  if not target_info.exclude_system:
++    assert HasRecoveryPatch(input_zip)
+ 
+   # Assertions (e.g. downgrade check, device properties check).
+   ts = target_info.GetBuildProp("ro.build.date.utc")
+@@ -974,7 +991,9 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
+         "BlockDifference objects"
+ 
+   progress_dict = dict()
+-  block_diffs = [GetBlockDifference("system")]
++  block_diffs = []
++  if not target_info.exclude_system:
++    block_diffs.append(GetBlockDifference("system"))
+   if HasVendorPartition(input_zip):
+     block_diffs.append(GetBlockDifference("vendor"))
+     progress_dict["vendor"] = 0.1
+-- 
+2.25.1
+

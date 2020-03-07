@@ -62,18 +62,9 @@ do_if_online() {
     fi
 }
 
+
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
-echo ""
-echo ""
-echo "         applying ix5 patches..."
+echo "         applying patches..."
 echo ""
 
 
@@ -90,9 +81,9 @@ pushd $ANDROOT/kernel/sony/msm-4.9/kernel
 # precompiled dtb files, thus rendering this patch useless
 #git am < $PATCHES_PATH/kernel-dtsi-wakeup.patch
 # tone: panel: set min brightness to 1.2mA
-git am < $PATCHES_PATH/panel-minimum-brightness.patch
+#git am < $PATCHES_PATH/panel-minimum-brightness.patch
 # dts: tone: Kill verity
-git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
+#git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
 # Update makefiles for Android Q and clang
 git am < $PATCHES_PATH/q-kernel-4.9-makefile.patch
 popd
@@ -207,64 +198,64 @@ apply_commit f068df37449d04b9286800baf5cec873e991b455
 popd
 
 
-pushd $ANDROOT/device/sony/tone
+# pushd $ANDROOT/device/sony/tone
 # TODO: Remove me once merged into Q/master
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tone"
+# LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tone"
 # platform.mk: Move KERNEL_PATH to common
-apply_pull_commit 188 5337faa4a7222158e312c498128ee2bc0bd74c11
+# apply_pull_commit 188 5337faa4a7222158e312c498128ee2bc0bd74c11
 
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
+# LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
+# (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+# do_if_online git fetch ix5
 
 # git checkout 'disable-verity-no-forceencrypt'
 # Change forceencrypt to encryptable for userdata
-apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
+# apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
 # Disable dm-verity
-apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
+# apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
 
 # git checkout 'revert-kernel-4.14-rebased'
 # Revert "move msm8996 devices to kernel 4.14"
-apply_commit 51e624b5800c777e16f4b66b8af9e37248528db1
+# apply_commit 51e624b5800c777e16f4b66b8af9e37248528db1
 
 # git checkout 'k4.9-guard'
 # PlatformConfig: Only use DRM/SDE on 4.14
-apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
+# apply_commit 3d7b19e1af6ca951ffb9a021b6ecd70d903d4dff
 
 # git checkout 'treble-odm-3'
 # Use oem as /vendor
-apply_commit 796ff85b93d28a301cce7bd6b3e0852a35180e04
-popd
+# apply_commit 796ff85b93d28a301cce7bd6b3e0852a35180e04
+# popd
 
 
-pushd $ANDROOT/device/sony/tama
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tama"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
+# pushd $ANDROOT/device/sony/tama
+# LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tama"
+# (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+# do_if_online git fetch ix5
 
 # git checkout 'avb-allow-disable-verity'
 # PlatformConfig: Allow unverified images
-apply_commit 28915c56a25f9965aa22487366ba69ed8e78574b
+# apply_commit 28915c56a25f9965aa22487366ba69ed8e78574b
 
 # git checkout 'overlay-sta-ap'
 # overlay: Move STA-AP configs from common
-apply_commit 253c5ddfa055e31e6d7d067a965f72f3e233c0d7
+# apply_commit 253c5ddfa055e31e6d7d067a965f72f3e233c0d7
 # CommonConfig: Move dual STA-AP from common
-apply_commit de5c440244a3fe78b92a4a24e36bdbc6ed20390a
+# apply_commit de5c440244a3fe78b92a4a24e36bdbc6ed20390a
 
 # TODO: Remove me once merged into Q/master
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tama"
+# LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-tama"
 # PlatformConfig: (Unconditionally) TARGET_NEEDS_DTBOIMAGE
-apply_pull_commit 76 844349867e5853cfcf9d669518aba2f3d9b4c7bb
+# apply_pull_commit 76 844349867e5853cfcf9d669518aba2f3d9b4c7bb
 # platform.mk: Move KERNEL_PATH to common
-apply_pull_commit 76 eac5da5a1506de78b6dbb22f64777ae17dbb6d32
-popd
+# apply_pull_commit 76 eac5da5a1506de78b6dbb22f64777ae17dbb6d32
+# popd
 
 
-pushd $ANDROOT/device/sony/kagura
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-kagura"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
+# pushd $ANDROOT/device/sony/kagura
+# LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-kagura"
+# (git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
+# do_if_online git fetch ix5
 
 # git checkout 'dt2w'
 # Re-enable tap to wake
@@ -273,17 +264,17 @@ do_if_online git fetch ix5
 #apply_commit bc9df19ac1561281f2b10238d9007a803cfaaa06
 # git checkout 'brightness'
 # Set minimum brightness values to 2 and 1
-apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
+# apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
 # git checkout 'rgbcir'
 # Add preliminary RGBCIR calibration file
 #apply_commit a0253f3de75c52bccb9275ee7eda6cd2f9db539c
-popd
+# popd
 
-pushd $ANDROOT/device/sony/apollo
-LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-apollo"
+# pushd $ANDROOT/device/sony/apollo
+# LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-apollo"
 # BoardConfig: Unify DTBOIMAGE defs in tama+common
-apply_pull_commit 23 19243695b21e1096f3df451161cc0a6bcbd9be8d
-popd
+# apply_pull_commit 23 19243695b21e1096f3df451161cc0a6bcbd9be8d
+# popd
 
 pushd $ANDROOT/system/sepolicy
 LINK=$HTTP && LINK+="://android.googlesource.com/platform/system/sepolicy"
@@ -311,18 +302,9 @@ popd
 
 # because "set -e" is used above, when we get to this point, we know
 # all patches were applied successfully.
+
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
-echo ""
-echo ""
-echo "         all ix5 patches applied successfully!"
+echo "         all patches applied successfully!"
 echo ""
 
 

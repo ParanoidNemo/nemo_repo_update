@@ -62,31 +62,23 @@ do_if_online() {
     fi
 }
 
+
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
-echo ""
-echo ""
-echo "         applying ix5 patches..."
+echo "         applying patches..."
 echo ""
 
 
-pushd $ANDROOT/kernel/sony/msm-4.9/kernel
+# Seems only for tone devices
+#pushd $ANDROOT/kernel/sony/msm-4.9/kernel
 # Enable wakeup_gesture in dtsi table
 # You need to discard vendor-sony-kernel or the build system will use
 # precompiled dtb files, thus rendering this patch useless
 #git am < $PATCHES_PATH/kernel-dtsi-wakeup.patch
 # tone: panel: set min brightness to 1.2mA
-git am < $PATCHES_PATH/panel-minimum-brightness.patch
+#git am < $PATCHES_PATH/panel-minimum-brightness.patch
 # dts: tone: Kill verity
-git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
-popd
+#git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
+#popd
 
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
@@ -222,34 +214,24 @@ LINK=$HTTP && LINK+="://github.com/sonyxperiadev/device-sony-sepolicy"
 apply_pull_commit 531 617c2ebd443f36a54687cc136c86f0880b0f5e1f
 popd
 
-pushd $ANDROOT/device/sony/tone
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-tone"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
-
-# git checkout 'disable-verity-no-forceencrypt'
-# Change forceencrypt to encryptable for userdata
-apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
-# Disable dm-verity
-apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
-popd
-
 pushd $ANDROOT/device/sony/loire
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-loire"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
+LINK=$HTTP && LINK+="://github.com/ParanoidNemo/device-sony-loire"
+(git remote --verbose | grep -q $LINK) || git remote add nemo $LINK
+do_if_online git fetch nemo
+
 # git checkout 'disable-verity-no-forceencrypt'
 # Change forceencrypt to encryptable for userdata
-apply_commit 2165decc2b97364348e0ce1ae9d099fc5abab430
+# TODO: change commit or cherrypick if usefull
+#apply_commit 2165decc2b97364348e0ce1ae9d099fc5abab430
 # Disable dm-verity
-apply_commit 740d3882c98a1c698649018ac1ea59e46d6af500
+#apply_commit 740d3882c98a1c698649018ac1ea59e46d6af500
 popd
 
 
-pushd $ANDROOT/device/sony/kagura
-LINK=$HTTP && LINK+="://git.ix5.org/felix/device-sony-kagura"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
+pushd $ANDROOT/device/sony/suzu
+LINK=$HTTP && LINK+="://github.com/ParanoidNemo/device-sony-suzu"
+(git remote --verbose | grep -q $LINK) || git remote add nemo $LINK
+do_if_online git fetch nemo
 
 # git checkout 'dt2w'
 # Re-enable tap to wake
@@ -258,7 +240,8 @@ do_if_online git fetch ix5
 #apply_commit bc9df19ac1561281f2b10238d9007a803cfaaa06
 # git checkout 'brightness'
 # Set minimum brightness values to 2 and 1
-apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
+# TODO: change commit or cherrypick if usefull
+#apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
 # git checkout 'rgbcir'
 # Add preliminary RGBCIR calibration file
 #apply_commit a0253f3de75c52bccb9275ee7eda6cd2f9db539c
@@ -271,18 +254,9 @@ popd
 
 # because "set -e" is used above, when we get to this point, we know
 # all patches were applied successfully.
+
 echo ""
-echo "         d8b          888888888"
-echo "         Y8P          888"
-echo "                      888"
-echo "         888 888  888 8888888b."
-echo "         888 ´Y8bd8P´      ´Y88b"
-echo "         888   X88K          888"
-echo "         888 .d8´´8b. Y88b  d88P"
-echo "         888 888  888  ´Y8888P´"
-echo ""
-echo ""
-echo "         all ix5 patches applied successfully!"
+echo "         all patches applied successfully!"
 echo ""
 
 

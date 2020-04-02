@@ -74,10 +74,22 @@ echo ""
 echo "         applying Kernel 4.9 patches..."
 echo ""
 
-pushd $ANDROOT/device/sony/common
-# revert: liblights: Migrate to kernel 4.14 LED class for RGB tri-led
-git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
+pushd $ANDROOT/packages/apps/Launcher3
+# Launcher3QuickStep: Remove useless QuickSearchbar
+git am < $PATCHES_PATH/q-launcher3quickstep-remove-quicksearchbar.patch
 popd
+
+pushd $ANDROOT/frameworks/base
+# Enable development settings by default
+git am < $PATCHES_PATH/q-enable-development-settings-by-default.patch
+# core: Add support for MicroG
+git am < $PATCHES_PATH/q-fwb-core-Add-support-for-MicroG.patch
+popd
+
+##pushd $ANDROOT/device/sony/common
+# revert: liblights: Migrate to kernel 4.14 LED class for RGB tri-led
+##git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
+##popd
 
 
 # because "set -e" is used above, when we get to this point, we know
@@ -92,9 +104,6 @@ echo "       ╚═╝  ╚═╝         ╚═╝╚═╝╚════╝"
 echo ""
 echo ""
 echo "    all Kernel 4.9 patches applied successfully!"
-echo ""
-echo "    keep in mind this is VERY VERY UGLY!!!"
-echo "    need to revert if building for 4.14..."
 echo ""
 
 

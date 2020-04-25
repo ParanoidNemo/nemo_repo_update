@@ -84,10 +84,10 @@ pushd $ANDROOT/frameworks/base
 git am < $PATCHES_PATH/q-fwb-core-Add-support-for-MicroG.patch
 popd
 
-pushd $ANDROOT/device/sony/common
+##pushd $ANDROOT/device/sony/common
 # revert: liblights: Migrate to kernel 4.14 LED class for RGB tri-led
-git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
-popd
+##git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
+##popd
 
 
 # because "set -e" is used above, when we get to this point, we know

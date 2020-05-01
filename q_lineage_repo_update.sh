@@ -74,17 +74,6 @@ echo "         applying patches for lineage..."
 echo ""
 
 
-pushd $ANDROOT/kernel/sony/msm-4.9/kernel
-# Enable wakeup_gesture in dtsi table
-# You need to discard vendor-sony-kernel or the build system will use
-# precompiled dtb files, thus rendering this patch useless
-#git am < $PATCHES_PATH/kernel-dtsi-wakeup.patch
-# tone: panel: set min brightness to 1.2mA
-git am < $PATCHES_PATH/panel-minimum-brightness.patch
-# dts: tone: Kill verity
-git am < $PATCHES_PATH/dtsi-tone-kill-verity.patch
-popd
-
 pushd $ANDROOT/build/make
 # releasetools: Allow flashing downgrades
 git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch
@@ -207,36 +196,6 @@ LINK="https://github.com/sonyxperiadev/device-sony-sepolicy"
 
 # [Q-COMPAT] system_app: Remove obsolete perfprofd dontaudit
 apply_pull_commit 531 617c2ebd443f36a54687cc136c86f0880b0f5e1f
-popd
-
-pushd $ANDROOT/device/sony/tone-common
-LINK="https://git.ix5.org/felix/device-sony-tone"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
-
-# git checkout 'disable-verity-no-forceencrypt'
-# Change forceencrypt to encryptable for userdata
-#apply_commit af592265685fddf24100cbc1fdcdcb5bfd2260c1
-# Disable dm-verity
-#apply_commit b611c8d91a374f246be393d89f20bbf3fc2ab9f7
-popd
-
-pushd $ANDROOT/device/sony/kagura
-LINK="https://git.ix5.org/felix/device-sony-kagura"
-(git remote --verbose | grep -q $LINK) || git remote add ix5 $LINK
-do_if_online git fetch ix5
-
-# git checkout 'dt2w'
-# Re-enable tap to wake
-#apply_commit 90a80f6e42bfd2feca40fbdc8e2b046ff654032a
-# Turn dt2w off by default in settings
-#apply_commit bc9df19ac1561281f2b10238d9007a803cfaaa06
-# git checkout 'brightness'
-# Set minimum brightness values to 2 and 1
-apply_commit 449f9eccfd292d968a98d08546062aedbf6e1a2d
-# git checkout 'rgbcir'
-# Add preliminary RGBCIR calibration file
-#apply_commit a0253f3de75c52bccb9275ee7eda6cd2f9db539c
 popd
 
 #pushd $ANDROOT/system/sepolicy

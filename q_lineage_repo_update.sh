@@ -75,8 +75,8 @@ echo ""
 
 
 pushd $ANDROOT/build/make
-# releasetools: Allow flashing downgrades
-git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch
+## releasetools: Allow flashing downgrades
+#git am < $PATCHES_PATH/build-releasetools-allow-flashing-downgrades.patch
 # check_boot_jars: Whitelist CAF IMS
 git am < $PATCHES_PATH/lineage-build-make-checkbootjars-caf-ims.patch
 popd

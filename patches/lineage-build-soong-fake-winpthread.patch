@@ -12,7 +12,12 @@ diff --git a/Android.bp b/Android.bp
 index ecbd2e3c..cfeb7843 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -359,10 +359,10 @@ toolchain_library {
+@@ -598,17 +598,17 @@ toolchain_library {
+    name: "libwinpthread",
+    host_supported: true,
+    enabled: false,
+    target: {
+        windows: {
              enabled: true,
          },
          windows_x86: {
@@ -24,6 +29,7 @@ index ecbd2e3c..cfeb7843 100644
 +            src: "prebuilts/gcc/linux-x86/host/x86_64-linux-glibc2.17-4.8/lib/libbfd.a",
          },
      },
+     notice: ":migw-libwinpthread-notice",
  }
 -- 
 2.23.0

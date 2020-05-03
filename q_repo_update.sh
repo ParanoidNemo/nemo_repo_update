@@ -91,9 +91,9 @@ LINK=$HTTP && LINK+="://android.googlesource.com/platform/hardware/qcom/audio"
 ##Change-Id: I7bb807788e457f7ec6ce5124dfb1d88dc96d8127
 #apply_gerrit_cl_commit refs/changes/00/1112100/2 eeecf8a399080598e5290d3356b0ad557bd0ccbd
 
-## hal: msm8916: Fix for vndk compilation errors
-## Change-Id: Iffd8a3c00a2a1ad063e10c0ebf3ce9e88e3edea0
-#apply_gerrit_cl_commit refs/changes/14/777714/1 065ec9c4857fdd092d689a0526e0caeaaa6b1d72
+# hal: msm8916: Fix for vndk compilation errors
+# Change-Id: Iffd8a3c00a2a1ad063e10c0ebf3ce9e88e3edea0
+apply_gerrit_cl_commit refs/changes/14/777714/1 065ec9c4857fdd092d689a0526e0caeaaa6b1d72
 
 # hal: msm8916: Add missing bracket to close function definition.
 # Change-Id: I8296a8fb551097fabf72115d2cec0849671b91ea

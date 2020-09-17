@@ -84,7 +84,7 @@ pushd $ANDROOT/frameworks/base
 git am < $PATCHES_PATH/q-fwb-core-Add-support-for-MicroG.patch
 popd
 
-pushd $ANDROOT/kernel/sony/msm-4.9/Kernel
+pushd $ANDROOT/kernel/sony/msm-4.9/kernel
 # Revert commit 
 git revert --no-edit -n d5824fb8db905309c0306e9ca2824fb65baf5d11
 # Add fix 

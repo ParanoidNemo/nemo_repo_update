@@ -88,7 +88,7 @@ pushd $ANDROOT/kernel/sony/msm-4.9/kernel
 # Revert commit 
 git revert --no-edit -n d5824fb8db905309c0306e9ca2824fb65baf5d11
 # Add fix 
-LINK="https://github.com/LuizPauloDamaceno/kernel-sony-msm-4.9/tree/patch-3"
+LINK="https://github.com/LuizPauloDamaceno/kernel-sony-msm-4.9/patch-3"
 (git remote --verbose | grep -q $LINK) || git remote add LuizPauloDamaceno $LINK
 do_if_online git fetch LuizPauloDamaceno
 # Test fix for random reboots

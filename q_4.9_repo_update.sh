@@ -84,21 +84,10 @@ pushd $ANDROOT/frameworks/base
 git am < $PATCHES_PATH/q-fwb-core-Add-support-for-MicroG.patch
 popd
 
-pushd $ANDROOT/kernel/sony/msm-4.9/kernel
-# Revert commit 
-git revert --no-edit -n d5824fb8db905309c0306e9ca2824fb65baf5d11
-# Add fix 
-LINK="https://github.com/LuizPauloDamaceno/kernel-sony-msm-4.9/patch-3"
-(git remote --verbose | grep -q $LINK) || git remote add LuizPauloDamaceno $LINK
-do_if_online git fetch LuizPauloDamaceno
-# Test fix for random reboots
-apply_commit 52bc1ce83655f1ed7a84f63f467e6891f5c27b93
-popd
-
-##pushd $ANDROOT/device/sony/common
-# revert: liblights: Migrate to kernel 4.14 LED class for RGB tri-led
-##git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
-##popd
+# pushd $ANDROOT/device/sony/common
+## revert: liblights: Migrate to kernel 4.14 LED class for RGB tri-led
+# git revert --no-edit 8b79a2321abe42c9d13540651cbf8a276ec7a2f1
+# popd
 
 
 # because "set -e" is used above, when we get to this point, we know

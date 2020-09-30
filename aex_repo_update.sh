@@ -113,9 +113,8 @@ apply_gerrit_cl_commit refs/changes/54/813054/1 01062d8acaae88b141893d69358d6c13
 apply_gerrit_cl_commit refs/changes/55/813055/1 cb97584647999d7ea8df858f2c3f4bf04f408f34
 popd
 
-## BOOTCTRL ANDROID.MK DOESN'T EXIST ON LOS TREE ##
-#pushd $ANDROOT/hardware/qcom/bootctrl
-#LINK=$HTTP && LINK+="://android.googlesource.com/platform/hardware/qcom/bootctrl"
+pushd $ANDROOT/hardware/qcom/bootctrl
+LINK=$HTTP && LINK+="://android.googlesource.com/platform/hardware/qcom/bootctrl"
 ## Build bootctrl.sdm710 with Android.bp.
 ## Change-Id: Ib29d901b44ad0ec079c3e979bfdcd467e1a18377
 #apply_gerrit_cl_commit refs/changes/01/965401/1 c665a9c43f379f754b4ee25df2818b6c20c5346e
@@ -128,8 +127,8 @@ popd
 #apply_gerrit_cl_commit refs/changes/96/967996/3 b229dfc102d5ea8e659514c61f6520ab3f9f777c
 ## Remove Android.mk rules for building bootctrl.
 ## Change-Id: Ib110508065f47a742acd92e03ea42901e8002e4f
-#apply_gerrit_cl_commit refs/changes/87/971787/1 7bde6868ff24001f8b6deb8cf643d86d71978b93
-#popd
+apply_gerrit_cl_commit refs/changes/87/971787/1 7bde6868ff24001f8b6deb8cf643d86d71978b93
+popd
 
 pushd $ANDROOT/hardware/nxp/nfc
 LINK=$HTTP && LINK+="://android.googlesource.com/platform/hardware/nxp/nfc"

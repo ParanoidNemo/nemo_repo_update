@@ -73,23 +73,23 @@ pushd $ANDROOT/hardware/qcom/audio
 LINK=$HTTP && LINK+="://android.googlesource.com/platform/hardware/qcom/audio"
 ## hal: Correct mixer control name for 3.5mm headphone
 ## Change-Id: I749609aabfed53e8adb3575695c248bf9a674874
-#git revert --no-edit 39a2b8a03c0a8a44940ac732f636d9cc1959eff2
+git revert --no-edit 39a2b8a03c0a8a44940ac732f636d9cc1959eff2
 
 ## switch msmnile to new Audio HAL
 ## Change-Id: I28e8c28822b29af68b52eb84f07f1eca746afa6d
-#git revert --no-edit d0d5c9135fed70a25a42f09f0e32b056bc7b15a8
+git revert --no-edit d0d5c9135fed70a25a42f09f0e32b056bc7b15a8
 
 ## switch sm8150 to msmnile
 ## Change-id: I37b9461240551037812b35d96d0b2db5e30bae5f
-#git revert --no-edit 8e9b92d2c87e9d1cd96ef153853287cb79d5934c
+git revert --no-edit 8e9b92d2c87e9d1cd96ef153853287cb79d5934c
 
 ##Add msm8976 tasha sound card detection to msm8916 HAL
 ##Change-Id:  Idc5ab339bb9c898205986ba0b4c7cc91febf19de
-#apply_gerrit_cl_commit refs/changes/99/1112099/2 5d6e73eca6f83ce5e7375aa1bd6ed61143d30978
+apply_gerrit_cl_commit refs/changes/99/1112099/2 5d6e73eca6f83ce5e7375aa1bd6ed61143d30978
 
 ##hal: enable audio hal on sdm660
 ##Change-Id: I7bb807788e457f7ec6ce5124dfb1d88dc96d8127
-#apply_gerrit_cl_commit refs/changes/00/1112100/2 eeecf8a399080598e5290d3356b0ad557bd0ccbd
+apply_gerrit_cl_commit refs/changes/00/1112100/2 eeecf8a399080598e5290d3356b0ad557bd0ccbd
 
 # hal: msm8916: Fix for vndk compilation errors
 # Change-Id: Iffd8a3c00a2a1ad063e10c0ebf3ce9e88e3edea0
